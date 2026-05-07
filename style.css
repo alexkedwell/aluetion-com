@@ -356,9 +356,13 @@ body {
 .products-section { background: var(--bg-2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
 .products-grid { display: grid; grid-template-columns: 1fr 1.35fr 1fr; gap: 28px; margin-top: 48px; align-items: start; }
 @media (max-width: 900px) { .products-grid { grid-template-columns: 1fr; } }
+.product-card .card-link { position: absolute; inset: 0; z-index: 0; border-radius: inherit; }
+.product-card .card-link ~ * { position: relative; z-index: 1; }
 .product-card.featured-center { border-color: var(--border-accent); box-shadow: 0 0 60px rgba(0,212,255,0.12); transform: translateY(-8px); }
 .product-card.featured-center:hover { transform: translateY(-12px); }
 .product-card {
+  position: relative;
+  cursor: pointer;
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: 20px;
