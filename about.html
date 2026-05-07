@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Aluetion. Built by Engineers, Run by AI</title>
+  <meta name="description" content="Aluetion is a team of engineers and AI agents who believe small businesses deserve enterprise-grade automation at fair prices." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── About page overrides ── */
+    .about-hero {
+      padding: 120px 0 80px;
+      text-align: center;
+      position: relative;
+    }
+    .about-hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%; transform: translateX(-50%);
+      width: 700px; height: 400px;
+      background: radial-gradient(ellipse at center, var(--accent-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .about-badge {
+      display: inline-block;
+      background: var(--accent-dim);
+      border: 1px solid var(--border-accent);
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: 28px;
+    }
+    .about-hero h1 {
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      color: var(--text);
+    }
+    .about-hero h1 .accent { color: var(--accent); }
+    .about-hero p {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 560px;
+      margin: 0 auto 36px;
+      line-height: 1.7;
+    }
+
+    /* Story section */
+    .story-section {
+      padding: 80px 0;
+      background: var(--bg);
+    }
+    .story-content {
+      max-width: 720px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+    .story-content h2 {
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      font-weight: 800;
+      margin-bottom: 24px;
+      color: var(--text);
+    }
+    .story-content p {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      line-height: 1.8;
+    }
+
+    /* Mission section */
+    .mission-section {
+      padding: 80px 0;
+      background: var(--bg-2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .mission-box {
+      max-width: 780px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .mission-label {
+      display: inline-block;
+      background: var(--accent-dim);
+      border: 1px solid var(--border-accent);
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: 16px;
+    }
+    .mission-statement {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1.2;
+      color: var(--text);
+      margin-bottom: 24px;
+    }
+    .mission-statement .accent {
+      color: var(--accent);
+    }
+    .mission-description {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Team section */
+    .team-section {
+      padding: 80px 0;
+      background: var(--bg);
+    }
+    .team-content {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .team-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .team-header h2 {
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      font-weight: 800;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+    .team-header p {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+      margin-bottom: 56px;
+    }
+    .team-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px;
+      transition: all var(--transition);
+      text-align: center;
+    }
+    .team-card:hover {
+      border-color: var(--border-accent);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0, 212, 255, 0.1);
+    }
+    .team-icon {
+      font-size: 3rem;
+      margin-bottom: 16px;
+    }
+    .team-card h3 {
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+    .team-card p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+    .team-philosophy {
+      background: var(--bg-card);
+      border: 1px solid var(--border-accent);
+      border-radius: 20px;
+      padding: 40px;
+      text-align: center;
+    }
+    .team-philosophy h3 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+      color: var(--accent);
+    }
+    .team-philosophy p {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Final CTA */
+    .final-cta {
+      padding: 80px 0;
+      background: var(--bg-2);
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    .final-cta h2 {
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      font-weight: 800;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+    .final-cta p {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .final-cta .btn-lg {
+      padding: 16px 48px;
+      font-size: 1.05rem;
+    }
+    .final-cta .cta-note {
+      margin-top: 16px;
+      font-size: 0.85rem;
+      color: var(--text-faint);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .team-grid {
+        grid-template-columns: 1fr;
+      }
+      .about-hero { padding: 100px 0 60px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <header class="nav-bar" id="nav">
+    <div class="container nav-inner">
+      <a href="/" class="logo">Aluetion</a>
+      <nav class="nav-links" id="navLinks">
+        <a href="/#products">Products</a>
+        <a href="/#services">Services</a>
+        <a href="/compare">Compare</a>
+        <a href="/#contact">Contact</a>
+      </nav>
+      <a href="/onboarding" class="btn btn-sm">Get Started</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">&#9776;</button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="about-hero">
+    <div class="about-badge">About Aluetion</div>
+    <h1>
+      Built by Engineers,<br />
+      <span class="accent">Run by AI</span>
+    </h1>
+    <p>
+      We're a small team of engineers and AI agents who believe small businesses deserve enterprise-grade automation at fair prices.
+    </p>
+  </section>
+
+  <!-- STORY -->
+  <section class="story-section">
+    <div class="container story-content">
+      <h2>Our Story</h2>
+      <p>
+        We started Aluetion because we watched too many small businesses struggle with the same boring problems: appointment reminders that never get sent, follow-ups that fall through the cracks, customer data scattered across five different tools.
+      </p>
+      <p>
+        The market was clear: big platforms wanted millions of dollars in upfront costs and months of implementation. Smaller platforms were outdated or inflexible. Nothing was built specifically for the business owner who just wanted things to work, without the enterprise tax.
+      </p>
+      <p>
+        So we built Aluetion. A name that means "the solution"—because that's what it is. A team that combines human expertise with AI agents to deliver automation that actually fits your business, at a price that makes sense. No bloat. No surprises. Just fast, reliable automation.
+      </p>
+    </div>
+  </section>
+
+  <!-- MISSION -->
+  <section class="mission-section">
+    <div class="container mission-box">
+      <div class="mission-label">Our Mission</div>
+      <h2 class="mission-statement">
+        Make automation<br />
+        <span class="accent">accessible to every business</span>
+      </h2>
+      <p class="mission-description">
+        Not just Fortune 500s. Not just companies with unlimited budgets. Every business—from solo practitioners to growing teams—deserves access to the same automation tools that power enterprise operations.
+      </p>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section class="team-section">
+    <div class="container team-content">
+      <div class="team-header">
+        <h2>Built by Engineers, Run by AI</h2>
+        <p>
+          Our team is lean by design. We use AI agents to handle the day-to-day, so our humans can focus on strategy, quality, and the problems that matter.
+        </p>
+      </div>
+
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="team-icon">👨‍💻</div>
+          <h3>Engineers</h3>
+          <p>We build robust, production-grade automation systems that integrate with your existing tools without friction.</p>
+        </div>
+        <div class="team-card">
+          <div class="team-icon">🤖</div>
+          <h3>AI Agents</h3>
+          <p>Our AI team handles setup, monitoring, and day-to-day client management so we can scale without sacrificing quality.</p>
+        </div>
+        <div class="team-card">
+          <div class="team-icon">💡</div>
+          <h3>Strategy</h3>
+          <p>Humans focus on innovation, client relationships, and the problems AI can't solve alone—the stuff that actually moves the needle.</p>
+        </div>
+      </div>
+
+      <div class="team-philosophy">
+        <h3>Why This Model Works</h3>
+        <p>
+          Because we automate the automators. AI agents handle repetitive tasks—scheduling, monitoring, basic troubleshooting. This frees our engineers to build better systems and our whole team to serve you faster. You get lower costs, faster setup, and better product. Everyone wins.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <div class="container">
+      <h2>Ready to automate?</h2>
+      <p>See how Aluetion can save your team hundreds of hours per month.</p>
+      <a href="/onboarding" class="btn btn-primary btn-lg">Get Started →</a>
+      <p class="cta-note">4-step onboarding · Setup in 24–48 hours</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="logo">Aluetion</span>
+        <p class="footer-tagline">We automate the boring stuff.</p>
+        <p class="footer-tagline" style="color:var(--text-faint);font-size:0.78rem;margin-top:4px">Aluetion is the solution.</p>
+      </div>
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="/automation">Automation</a>
+        <a href="/about">About</a>
+        <a href="/compare">Compare</a>
+        <a href="/roi">ROI Calculator</a>
+        <a href="/dentists">For Dentists</a>
+        <a href="/salons">For Salons</a>
+        <a href="/chiropractors">For Chiropractors</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+        <a href="mailto:hello@aluetion.com">hello@aluetion.com</a>
+      </div>
+      <p class="footer-copy">© 2026 Aluetion. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
