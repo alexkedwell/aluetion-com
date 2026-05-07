@@ -266,24 +266,71 @@
         <div class="progress-bar" id="progressBar">
           <div class="progress-step active" data-step="1">
             <div class="step-dot">1</div>
-            <div class="step-label">Business</div>
+            <div class="step-label">Overview</div>
           </div>
           <div class="progress-step" data-step="2">
             <div class="step-dot">2</div>
-            <div class="step-label">Booking</div>
+            <div class="step-label">Business</div>
           </div>
           <div class="progress-step" data-step="3">
             <div class="step-dot">3</div>
-            <div class="step-label">Automations</div>
+            <div class="step-label">Booking</div>
           </div>
           <div class="progress-step" data-step="4">
             <div class="step-dot">4</div>
+            <div class="step-label">Automations</div>
+          </div>
+          <div class="progress-step" data-step="5">
+            <div class="step-dot">5</div>
             <div class="step-label">Confirm</div>
           </div>
         </div>
 
-        <!-- STEP 1: Business Info -->
+        <!-- STEP 1: Overview / Product Preview -->
         <div class="step-content active" id="step1">
+          <div class="step-header">
+            <h2>Here’s exactly what you’re getting</h2>
+            <p>Business Automation by Aluetion — fully set up in 48 hours. No contracts, cancel anytime.</p>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px">
+            <div style="background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:18px">
+              <div style="font-size:1.5rem;margin-bottom:8px">📅</div>
+              <strong style="color:var(--text)">Appointment Reminders</strong>
+              <p style="font-size:0.83rem;color:var(--text-muted);margin-top:4px">SMS + email 24h and 2h before each appointment. No-shows drop fast.</p>
+            </div>
+            <div style="background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:18px">
+              <div style="font-size:1.5rem;margin-bottom:8px">📨</div>
+              <strong style="color:var(--text)">Follow-Up Sequences</strong>
+              <p style="font-size:0.83rem;color:var(--text-muted);margin-top:4px">Auto check-in after every visit. Clients rebook without you lifting a finger.</p>
+            </div>
+            <div style="background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:18px">
+              <div style="font-size:1.5rem;margin-bottom:8px">⭐</div>
+              <strong style="color:var(--text)">Google Review Requests</strong>
+              <p style="font-size:0.83rem;color:var(--text-muted);margin-top:4px">Sent automatically 1–2 hours post-appointment. Watch your rating climb.</p>
+            </div>
+            <div style="background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:18px">
+              <div style="font-size:1.5rem;margin-bottom:8px">🔄</div>
+              <strong style="color:var(--text)">Win-Back Campaigns</strong>
+              <p style="font-size:0.83rem;color:var(--text-muted);margin-top:4px">Re-engage clients you haven’t seen in 60+ days. Money left on the table — recovered.</p>
+            </div>
+          </div>
+          <div style="background:var(--bg);border:1px solid var(--border-accent);border-radius:14px;padding:22px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;margin-bottom:28px">
+            <div>
+              <div style="font-size:1.6rem;font-weight:900;color:var(--accent)">$197<span style="font-size:1rem;font-weight:500;color:var(--text-muted)">/mo</span></div>
+              <div style="font-size:0.85rem;color:var(--text-muted);margin-top:2px">Everything above included · Setup in 48h · Cancel anytime</div>
+            </div>
+            <div style="font-size:0.82rem;color:var(--text-muted);text-align:right">
+              ✓ No setup fee &nbsp;•&nbsp; ✓ No contracts &nbsp;•&nbsp; ✓ No per-message fees
+            </div>
+          </div>
+          <div class="step-nav">
+            <span></span>
+            <button class="btn btn-primary" onclick="goToStep(2)">Looks good — let’s set it up →</button>
+          </div>
+        </div>
+
+        <!-- STEP 2: Business Info -->
+        <div class="step-content" id="step2">
           <div class="step-header">
             <h2>Tell us about your business</h2>
             <p>We'll use this to configure your automations and send from the right brand identity.</p>
@@ -334,12 +381,12 @@
           </div>
           <div class="step-nav">
             <span></span>
-            <button class="btn btn-primary" onclick="goToStep(2)">Next. Booking System →</button>
+            <button class="btn btn-primary" onclick="goToStep(3)">Next. Booking System →</button>
           </div>
         </div>
 
-        <!-- STEP 2: Booking System -->
-        <div class="step-content" id="step2">
+        <!-- STEP 3: Booking System -->
+        <div class="step-content" id="step3">
           <div class="step-header">
             <h2>Your booking system</h2>
             <p>We'll connect to your existing platform to read appointments and trigger automations. No new software required.</p>
@@ -385,13 +432,13 @@
             </select>
           </div>
           <div class="step-nav">
-            <button class="btn-back" onclick="goToStep(1)">← Back</button>
-            <button class="btn btn-primary" onclick="goToStep(3)">Next. Automations →</button>
+            <button class="btn-back" onclick="goToStep(2)">← Back</button>
+            <button class="btn btn-primary" onclick="goToStep(4)">Next. Automations →</button>
           </div>
         </div>
 
-        <!-- STEP 3: Automations -->
-        <div class="step-content" id="step3">
+        <!-- STEP 4: Automations -->
+        <div class="step-content" id="step4">
           <div class="step-header">
             <h2>What do you want automated?</h2>
             <p>All three are included in your $197/mo plan. Select which ones to activate first.</p>
@@ -470,13 +517,13 @@
             <textarea id="notes" placeholder="e.g. We prefer not to send messages after 7pm, we go by first names only, etc."></textarea>
           </div>
           <div class="step-nav">
-            <button class="btn-back" onclick="goToStep(2)">← Back</button>
-            <button class="btn btn-primary" onclick="goToStep(4)">Review & Submit →</button>
+            <button class="btn-back" onclick="goToStep(3)">← Back</button>
+            <button class="btn btn-primary" onclick="goToStep(5)">Review & Submit →</button>
           </div>
         </div>
 
-        <!-- STEP 4: Confirm -->
-        <div class="step-content" id="step4">
+        <!-- STEP 5: Confirm -->
+        <div class="step-content" id="step5">
           <div class="step-header">
             <h2>Review your details</h2>
             <p>Look good? We'll reach out within 24 hours to complete setup.</p>
@@ -504,7 +551,7 @@
             <div class="summary-row"><span>Setup time</span><span>24–48 hours</span></div>
           </div>
           <div class="step-nav">
-            <button class="btn-back" onclick="goToStep(3)">← Back</button>
+            <button class="btn-back" onclick="goToStep(4)">← Back</button>
             <button class="btn btn-primary" id="submitBtn" onclick="submitForm()">✓ Submit & Get Started</button>
           </div>
         </div>
@@ -539,15 +586,16 @@
       document.getElementById('step' + n).classList.add('active');
       document.querySelector('[data-step="' + n + '"]').classList.add('active');
 
-      if (n === 4) buildSummary();
+      if (n === 5) buildSummary();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function validateStep(n) {
       const required = {
-        1: ['firstName', 'lastName', 'businessName', 'businessType', 'email', 'phone'],
-        2: ['bookingPlatform'],
-        3: []
+        1: [],
+        2: ['firstName', 'lastName', 'businessName', 'businessType', 'email', 'phone'],
+        3: ['bookingPlatform'],
+        4: []
       };
       const fields = required[n] || [];
       for (const id of fields) {
@@ -641,7 +689,7 @@
 
         if (res.ok) {
           document.getElementById('progressBar').style.display = 'none';
-          document.getElementById('step4').classList.remove('active');
+          document.getElementById('step5').classList.remove('active');
           document.getElementById('successView').style.display = 'block';
           document.getElementById('s-confirm-email').textContent = data.email;
         } else {
