@@ -703,12 +703,18 @@ body {
 }
 
 /* Stagger children */
-.services-grid .fade-up:nth-child(1) { transition-delay: 0.05s; }
-.services-grid .fade-up:nth-child(2) { transition-delay: 0.12s; }
-.services-grid .fade-up:nth-child(3) { transition-delay: 0.19s; }
-.services-grid .fade-up:nth-child(4) { transition-delay: 0.26s; }
-.services-grid .fade-up:nth-child(5) { transition-delay: 0.33s; }
-.services-grid .fade-up:nth-child(6) { transition-delay: 0.40s; }
+.services-grid .fade-up:nth-child(1)  { transition-delay: 0.05s; }
+.services-grid .fade-up:nth-child(2)  { transition-delay: 0.10s; }
+.services-grid .fade-up:nth-child(3)  { transition-delay: 0.15s; }
+.services-grid .fade-up:nth-child(4)  { transition-delay: 0.20s; }
+.services-grid .fade-up:nth-child(5)  { transition-delay: 0.25s; }
+.services-grid .fade-up:nth-child(6)  { transition-delay: 0.30s; }
+.services-grid .fade-up:nth-child(7)  { transition-delay: 0.35s; }
+.services-grid .fade-up:nth-child(8)  { transition-delay: 0.40s; }
+.services-grid .fade-up:nth-child(9)  { transition-delay: 0.45s; }
+.services-grid .fade-up:nth-child(10) { transition-delay: 0.50s; }
+.services-grid .fade-up:nth-child(11) { transition-delay: 0.55s; }
+.services-grid .fade-up:nth-child(12) { transition-delay: 0.60s; }
 
 .why-grid .fade-up:nth-child(1) { transition-delay: 0.05s; }
 .why-grid .fade-up:nth-child(2) { transition-delay: 0.12s; }
