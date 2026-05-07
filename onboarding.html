@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Get Started. Aluetion</title>
+  <meta name="description" content="Set up your AI automation in 48 hours. Tell us about your business and we'll handle the rest." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .onboard-wrap {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 100px 0 60px;
+    }
+    .onboard-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 52px 56px;
+      max-width: 600px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* Progress */
+    .progress-bar {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin-bottom: 44px;
+    }
+    .progress-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+      position: relative;
+    }
+    .progress-step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 16px;
+      left: 50%;
+      width: 100%;
+      height: 2px;
+      background: var(--border);
+      z-index: 0;
+    }
+    .progress-step.done:not(:last-child)::after,
+    .progress-step.active:not(:last-child)::after {
+      background: var(--accent);
+    }
+    .step-dot {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      background: var(--bg-card);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      position: relative;
+      z-index: 1;
+      transition: all 0.3s;
+    }
+    .progress-step.active .step-dot {
+      border-color: var(--accent);
+      background: var(--accent-dim);
+      color: var(--accent);
+    }
+    .progress-step.done .step-dot {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: #000;
+    }
+    .step-label {
+      font-size: 0.7rem;
+      color: var(--text-faint);
+      margin-top: 8px;
+      white-space: nowrap;
+    }
+    .progress-step.active .step-label { color: var(--accent); }
+    .progress-step.done .step-label { color: var(--text-muted); }
+
+    /* Step content */
+    .step-content { display: none; }
+    .step-content.active { display: block; }
+
+    .step-header { margin-bottom: 32px; }
+    .step-header h2 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .step-header p {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Form fields */
+    .field-group { margin-bottom: 20px; }
+    .field-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .field-group input,
+    .field-group select,
+    .field-group textarea {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 16px;
+      color: var(--text);
+      font-size: 0.95rem;
+      font-family: var(--font);
+      outline: none;
+      transition: border-color 0.2s;
+      box-sizing: border-box;
+    }
+    .field-group input:focus,
+    .field-group select:focus,
+    .field-group textarea:focus {
+      border-color: var(--accent);
+    }
+    .field-group select {
+      appearance: none;
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2394a3b8' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 38px;
+    }
+    .field-group select option { background: #111827; }
+    .field-group textarea { resize: vertical; min-height: 90px; }
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    /* Checkboxes */
+    .check-group { display: flex; flex-direction: column; gap: 12px; }
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    .check-item:hover { border-color: var(--border-accent); }
+    .check-item.checked { border-color: var(--accent); background: var(--accent-dim); }
+    .check-item input[type="checkbox"] { display: none; }
+    .check-box {
+      width: 20px; height: 20px;
+      border: 2px solid var(--border);
+      border-radius: 5px;
+      flex-shrink: 0;
+      margin-top: 1px;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+    .check-item.checked .check-box {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #000;
+    }
+    .check-item.checked .check-box::after { content: '✓'; font-size: 0.75rem; font-weight: 800; }
+    .check-text strong { display: block; font-size: 0.9rem; color: var(--text); font-weight: 600; }
+    .check-text span { font-size: 0.82rem; color: var(--text-muted); }
+
+    /* Nav buttons */
+    .step-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 32px;
+    }
+    .btn-back {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      cursor: pointer;
+      padding: 0;
+      font-family: var(--font);
+    }
+    .btn-back:hover { color: var(--text); }
+
+    /* Summary */
+    .summary-block {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+    .summary-block h4 {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.88rem;
+      padding: 5px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .summary-row:last-child { border-bottom: none; }
+    .summary-row span:first-child { color: var(--text-muted); }
+    .summary-row span:last-child { color: var(--text); font-weight: 500; text-align: right; max-width: 60%; }
+
+    /* Success */
+    .success-view {
+      display: none;
+      text-align: center;
+      padding: 20px 0;
+    }
+    .success-icon {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+    }
+    .success-view h2 { font-size: 1.8rem; font-weight: 800; margin-bottom: 12px; }
+    .success-view p { color: var(--text-muted); line-height: 1.7; margin-bottom: 8px; }
+
+    @media (max-width: 640px) {
+      .onboard-card { padding: 32px 24px; }
+      .field-row { grid-template-columns: 1fr; }
+      .step-label { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="container">
+      <div class="header-inner">
+        <a href="/" class="logo">Aluetion</a>
+        <a href="/automation" class="btn btn-sm">← Back to Plans</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="onboard-wrap">
+    <div class="container">
+      <div class="onboard-card">
+
+        <!-- Progress bar -->
+        <div class="progress-bar" id="progressBar">
+          <div class="progress-step active" data-step="1">
+            <div class="step-dot">1</div>
+            <div class="step-label">Business</div>
+          </div>
+          <div class="progress-step" data-step="2">
+            <div class="step-dot">2</div>
+            <div class="step-label">Booking</div>
+          </div>
+          <div class="progress-step" data-step="3">
+            <div class="step-dot">3</div>
+            <div class="step-label">Automations</div>
+          </div>
+          <div class="progress-step" data-step="4">
+            <div class="step-dot">4</div>
+            <div class="step-label">Confirm</div>
+          </div>
+        </div>
+
+        <!-- STEP 1: Business Info -->
+        <div class="step-content active" id="step1">
+          <div class="step-header">
+            <h2>Tell us about your business</h2>
+            <p>We'll use this to configure your automations and send from the right brand identity.</p>
+          </div>
+          <div class="field-row">
+            <div class="field-group">
+              <label>First Name *</label>
+              <input type="text" id="firstName" placeholder="Jane" />
+            </div>
+            <div class="field-group">
+              <label>Last Name *</label>
+              <input type="text" id="lastName" placeholder="Smith" />
+            </div>
+          </div>
+          <div class="field-group">
+            <label>Business Name *</label>
+            <input type="text" id="businessName" placeholder="Smith Family Dental" />
+          </div>
+          <div class="field-group">
+            <label>Business Type *</label>
+            <select id="businessType">
+              <option value="">Select your business type...</option>
+              <option>Dental Practice</option>
+              <option>Chiropractic Office</option>
+              <option>Hair Salon / Barbershop</option>
+              <option>Nail Salon</option>
+              <option>Med Spa / Aesthetics</option>
+              <option>Physical Therapy</option>
+              <option>Massage Therapy</option>
+              <option>Yoga / Fitness Studio</option>
+              <option>Real Estate Agency</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="field-row">
+            <div class="field-group">
+              <label>Your Email *</label>
+              <input type="email" id="email" placeholder="jane@smithdental.com" />
+            </div>
+            <div class="field-group">
+              <label>Phone Number *</label>
+              <input type="tel" id="phone" placeholder="(555) 000-0000" />
+            </div>
+          </div>
+          <div class="field-group">
+            <label>Business Address</label>
+            <input type="text" id="address" placeholder="123 Main St, Austin, TX 78701" />
+          </div>
+          <div class="step-nav">
+            <span></span>
+            <button class="btn btn-primary" onclick="goToStep(2)">Next. Booking System →</button>
+          </div>
+        </div>
+
+        <!-- STEP 2: Booking System -->
+        <div class="step-content" id="step2">
+          <div class="step-header">
+            <h2>Your booking system</h2>
+            <p>We'll connect to your existing platform to read appointments and trigger automations. No new software required.</p>
+          </div>
+          <div class="field-group">
+            <label>Booking Platform *</label>
+            <select id="bookingPlatform" onchange="toggleOtherPlatform()">
+              <option value="">Select your platform...</option>
+              <option>Mindbody</option>
+              <option>Acuity Scheduling</option>
+              <option>Jane App</option>
+              <option>Square Appointments</option>
+              <option>Calendly</option>
+              <option>SimplePractice</option>
+              <option>Vagaro</option>
+              <option>Fresha</option>
+              <option>Google Calendar</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="field-group" id="otherPlatformField" style="display:none">
+            <label>Describe your platform</label>
+            <input type="text" id="otherPlatform" placeholder="e.g. Custom system, spreadsheet, etc." />
+          </div>
+          <div class="field-group">
+            <label>Booking System Login Email</label>
+            <input type="email" id="bookingEmail" placeholder="login@yourbusiness.com" />
+          </div>
+          <div class="field-group">
+            <label>Booking System Password</label>
+            <input type="password" id="bookingPassword" placeholder="We'll store this securely" />
+            <p style="font-size:0.78rem;color:var(--text-faint);margin-top:6px">🔒 Stored encrypted. We only need read access to appointments. You can also share credentials securely after signup.</p>
+          </div>
+          <div class="field-group">
+            <label>How many appointments per month (approx)?</label>
+            <select id="apptVolume">
+              <option value="">Select range...</option>
+              <option>Under 50</option>
+              <option>50–150</option>
+              <option>150–300</option>
+              <option>300–500</option>
+              <option>500+</option>
+            </select>
+          </div>
+          <div class="step-nav">
+            <button class="btn-back" onclick="goToStep(1)">← Back</button>
+            <button class="btn btn-primary" onclick="goToStep(3)">Next. Automations →</button>
+          </div>
+        </div>
+
+        <!-- STEP 3: Automations -->
+        <div class="step-content" id="step3">
+          <div class="step-header">
+            <h2>What do you want automated?</h2>
+            <p>All three are included in your $197/mo plan. Select which ones to activate first.</p>
+          </div>
+          <div class="field-group">
+            <label>Automations to activate</label>
+            <div class="check-group">
+              <label class="check-item checked" id="check-reminders">
+                <input type="checkbox" checked />
+                <div class="check-box"></div>
+                <div class="check-text"><strong>📅 Appointment Reminders</strong><span>SMS + email 24h and 2h before each appointment</span></div>
+              </label>
+              <label class="check-item checked" id="check-followup">
+                <input type="checkbox" checked />
+                <div class="check-box"></div>
+                <div class="check-text"><strong>📨 Follow-Up Sequences</strong><span>Check-in 3 days after a visit to encourage rebooking</span></div>
+              </label>
+              <label class="check-item checked" id="check-reviews">
+                <input type="checkbox" checked />
+                <div class="check-box"></div>
+                <div class="check-text"><strong>⭐ Review Requests</strong><span>Google review ask 1–2 hours after their appointment</span></div>
+              </label>
+              <label class="check-item" id="check-winback">
+                <input type="checkbox" />
+                <div class="check-box"></div>
+                <div class="check-text"><strong>🔄 Win-Back Campaigns</strong><span>Re-engage clients who haven’t visited in 60+ days</span></div>
+              </label>
+              <label class="check-item" id="check-birthday">
+                <input type="checkbox" />
+                <div class="check-box"></div>
+                <div class="check-text"><strong>🎂 Birthday Messages</strong><span>Auto-send a personal note on their birthday</span></div>
+              </label>
+              <label class="check-item" id="check-referral">
+                <input type="checkbox" />
+                <div class="check-box"></div>
+                <div class="check-text"><strong>🤝 Referral Requests</strong><span>Ask happy clients to refer a friend after a great visit</span></div>
+              </label>
+              <label class="check-item" id="check-welcome">
+                <input type="checkbox" />
+                <div class="check-box"></div>
+                <div class="check-text"><strong>🆕 New Client Welcome</strong><span>Warm welcome email series for first-time clients</span></div>
+              </label>
+              <label class="check-item" id="check-prep">
+                <input type="checkbox" />
+                <div class="check-box"></div>
+                <div class="check-text"><strong>📋 Pre-Appointment Instructions</strong><span>Custom prep instructions sent 24h before (fasting, what to bring, etc.)</span></div>
+              </label>
+              <label class="check-item" id="check-loyalty">
+                <input type="checkbox" />
+                <div class="check-box"></div>
+                <div class="check-text"><strong>🏆 Loyalty Milestones</strong><span>Automatically reward clients at visit milestones (5th, 10th visit)</span></div>
+              </label>
+              <label class="check-item" id="check-insurance">
+                <input type="checkbox" />
+                <div class="check-box"></div>
+                <div class="check-text"><strong>🯥 Insurance Benefits Reminder</strong><span>Remind clients to use benefits before they expire (great for dental)</span></div>
+              </label>
+            </div>
+          </div>
+          <div class="field-group">
+            <label>Google Business Profile URL</label>
+            <input type="url" id="googleProfile" placeholder="https://g.page/yourbusiness" />
+            <p style="font-size:0.78rem;color:var(--text-faint);margin-top:6px">Used to direct clients to leave a review. Find yours at business.google.com</p>
+          </div>
+          <div class="field-group">
+            <label>Brand Voice</label>
+            <select id="brandVoice">
+              <option value="">Select tone...</option>
+              <option>Professional & formal</option>
+              <option>Friendly & warm</option>
+              <option>Casual & conversational</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label>Anything else we should know?</label>
+            <textarea id="notes" placeholder="e.g. We prefer not to send messages after 7pm, we go by first names only, etc."></textarea>
+          </div>
+          <div class="step-nav">
+            <button class="btn-back" onclick="goToStep(2)">← Back</button>
+            <button class="btn btn-primary" onclick="goToStep(4)">Review & Submit →</button>
+          </div>
+        </div>
+
+        <!-- STEP 4: Confirm -->
+        <div class="step-content" id="step4">
+          <div class="step-header">
+            <h2>Review your details</h2>
+            <p>Look good? We'll reach out within 24 hours to complete setup.</p>
+          </div>
+          <div class="summary-block">
+            <h4>Business</h4>
+            <div class="summary-row"><span>Name</span><span id="s-name">—</span></div>
+            <div class="summary-row"><span>Type</span><span id="s-type">—</span></div>
+            <div class="summary-row"><span>Email</span><span id="s-email">—</span></div>
+            <div class="summary-row"><span>Phone</span><span id="s-phone">—</span></div>
+          </div>
+          <div class="summary-block">
+            <h4>Booking System</h4>
+            <div class="summary-row"><span>Platform</span><span id="s-platform">—</span></div>
+            <div class="summary-row"><span>Volume</span><span id="s-volume">—</span></div>
+          </div>
+          <div class="summary-block">
+            <h4>Automations</h4>
+            <div class="summary-row"><span>Active</span><span id="s-automations">—</span></div>
+            <div class="summary-row"><span>Brand Voice</span><span id="s-voice">—</span></div>
+          </div>
+          <div class="summary-block" style="border-color:var(--border-accent)">
+            <h4>Plan</h4>
+            <div class="summary-row"><span>Subscription</span><span style="color:var(--accent);font-weight:700">$197/mo · Cancel anytime</span></div>
+            <div class="summary-row"><span>Setup time</span><span>24–48 hours</span></div>
+          </div>
+          <div class="step-nav">
+            <button class="btn-back" onclick="goToStep(3)">← Back</button>
+            <button class="btn btn-primary" id="submitBtn" onclick="submitForm()">✓ Submit & Get Started</button>
+          </div>
+        </div>
+
+        <!-- SUCCESS -->
+        <div class="success-view" id="successView">
+          <div class="success-icon">🎉</div>
+          <h2>You're in!</h2>
+          <p>We've received your details and will reach out to <strong id="s-confirm-email"></strong> within 24 hours to complete setup.</p>
+          <p style="margin-top:8px">In the meantime, if you have any questions email us at <a href="mailto:hello@aluetion.com" style="color:var(--accent)">hello@aluetion.com</a></p>
+          <a href="/" class="btn btn-primary" style="margin-top:32px;display:inline-block">← Back to Aluetion</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentStep = 1;
+
+    function goToStep(n) {
+      if (n > currentStep && !validateStep(currentStep)) return;
+
+      document.getElementById('step' + currentStep).classList.remove('active');
+      document.querySelectorAll('.progress-step').forEach((el, i) => {
+        el.classList.remove('active');
+        if (i + 1 < n) el.classList.add('done');
+        else el.classList.remove('done');
+      });
+
+      currentStep = n;
+      document.getElementById('step' + n).classList.add('active');
+      document.querySelector('[data-step="' + n + '"]').classList.add('active');
+
+      if (n === 4) buildSummary();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function validateStep(n) {
+      const required = {
+        1: ['firstName', 'lastName', 'businessName', 'businessType', 'email', 'phone'],
+        2: ['bookingPlatform'],
+        3: []
+      };
+      const fields = required[n] || [];
+      for (const id of fields) {
+        const el = document.getElementById(id);
+        if (!el || !el.value.trim()) {
+          el.focus();
+          el.style.borderColor = '#ff4d4d';
+          setTimeout(() => el.style.borderColor = '', 2000);
+          return false;
+        }
+      }
+      return true;
+    }
+
+    function toggleOtherPlatform() {
+      const v = document.getElementById('bookingPlatform').value;
+      document.getElementById('otherPlatformField').style.display = v === 'Other' ? 'block' : 'none';
+    }
+
+    // Checkbox toggle
+    document.querySelectorAll('.check-item').forEach(item => {
+      item.addEventListener('click', () => {
+        item.classList.toggle('checked');
+        const cb = item.querySelector('input[type="checkbox"]');
+        cb.checked = item.classList.contains('checked');
+      });
+    });
+
+    function buildSummary() {
+      const automations = [];
+      const checks = {
+        'check-reminders':'Reminders','check-followup':'Follow-ups','check-reviews':'Reviews',
+        'check-winback':'Win-Back','check-birthday':'Birthdays','check-referral':'Referrals',
+        'check-welcome':'New Client Welcome','check-prep':'Pre-Appt Prep',
+        'check-loyalty':'Loyalty Milestones','check-insurance':'Insurance Reminders'
+      };
+      Object.entries(checks).forEach(([id,label]) => {
+        if (document.getElementById(id)?.classList.contains('checked')) automations.push(label);
+      });
+
+      document.getElementById('s-name').textContent = (document.getElementById('firstName').value + '. ' + document.getElementById('businessName').value) || '—';
+      document.getElementById('s-type').textContent = document.getElementById('businessType').value || '—';
+      document.getElementById('s-email').textContent = document.getElementById('email').value || '—';
+      document.getElementById('s-phone').textContent = document.getElementById('phone').value || '—';
+      document.getElementById('s-platform').textContent = document.getElementById('bookingPlatform').value || '—';
+      document.getElementById('s-volume').textContent = document.getElementById('apptVolume').value || '—';
+      document.getElementById('s-automations').textContent = automations.join(', ') || 'None selected';
+      document.getElementById('s-voice').textContent = document.getElementById('brandVoice').value || '—';
+    }
+
+    async function submitForm() {
+      const btn = document.getElementById('submitBtn');
+      btn.textContent = 'Submitting...';
+      btn.disabled = true;
+
+      const automations = [];
+      const allChecks = {
+        'check-reminders':'Appointment Reminders','check-followup':'Follow-up Sequences','check-reviews':'Review Requests',
+        'check-winback':'Win-Back Campaigns','check-birthday':'Birthday Messages','check-referral':'Referral Requests',
+        'check-welcome':'New Client Welcome','check-prep':'Pre-Appointment Instructions',
+        'check-loyalty':'Loyalty Milestones','check-insurance':'Insurance Benefits Reminders'
+      };
+      Object.entries(allChecks).forEach(([id,label]) => {
+        if (document.getElementById(id)?.classList.contains('checked')) automations.push(label);
+      });
+
+      const data = {
+        firstName: document.getElementById('firstName').value,
+        lastName: document.getElementById('lastName').value,
+        businessName: document.getElementById('businessName').value,
+        businessType: document.getElementById('businessType').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        address: document.getElementById('address').value,
+        bookingPlatform: document.getElementById('bookingPlatform').value,
+        bookingEmail: document.getElementById('bookingEmail').value,
+        apptVolume: document.getElementById('apptVolume').value,
+        googleProfile: document.getElementById('googleProfile').value,
+        brandVoice: document.getElementById('brandVoice').value,
+        automations: automations.join(', '),
+        notes: document.getElementById('notes').value,
+        _subject: 'New Signup: ' + document.getElementById('businessName').value + '. $197/mo'
+      };
+
+      try {
+        const res = await fetch('https://formspree.io/f/xzdovgla', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        if (res.ok) {
+          document.getElementById('progressBar').style.display = 'none';
+          document.getElementById('step4').classList.remove('active');
+          document.getElementById('successView').style.display = 'block';
+          document.getElementById('s-confirm-email').textContent = data.email;
+        } else {
+          throw new Error('Submit failed');
+        }
+      } catch (e) {
+        btn.textContent = '✓ Submit & Get Started';
+        btn.disabled = false;
+        alert('Something went wrong. Please email us directly at hello@aluetion.com');
+      }
+    }
+  </script>
+</body>
+</html>

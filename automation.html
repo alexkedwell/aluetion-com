@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Automation Subscription. $197/mo | Aluetion</title>
+  <meta name="description" content="Appointment reminders, follow-up emails, and review requests. fully automated for your local business. $197/mo. Cancel anytime." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── Automation page overrides ── */
+    .auto-hero {
+      padding: 120px 0 80px;
+      text-align: center;
+      position: relative;
+    }
+    .auto-hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%; transform: translateX(-50%);
+      width: 700px; height: 400px;
+      background: radial-gradient(ellipse at center, var(--accent-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .auto-badge {
+      display: inline-block;
+      background: var(--accent-dim);
+      border: 1px solid var(--border-accent);
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: 28px;
+    }
+    .auto-hero h1 {
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      color: var(--text);
+    }
+    .auto-hero h1 .accent { color: var(--accent); }
+    .auto-hero p {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 560px;
+      margin: 0 auto 36px;
+      line-height: 1.7;
+    }
+    .auto-hero .cta-group {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .auto-hero .cta-note {
+      margin-top: 14px;
+      font-size: 0.82rem;
+      color: var(--text-faint);
+    }
+
+    /* Social proof bar */
+    .proof-bar {
+      background: var(--bg-2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 18px 0;
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+    .proof-bar span { margin: 0 24px; }
+    .proof-bar strong { color: var(--text); }
+
+    /* What we automate */
+    .auto-features { padding: 90px 0; }
+    .auto-features .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .auto-features h2 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+    .auto-features .section-sub {
+      color: var(--text-muted);
+      max-width: 500px;
+      margin: 0 0 56px;
+      line-height: 1.7;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .feature-card:hover {
+      border-color: var(--border-accent);
+      transform: translateY(-3px);
+    }
+    .feature-icon {
+      font-size: 2rem;
+      margin-bottom: 18px;
+    }
+    .feature-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+    .feature-card p {
+      font-size: 0.93rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* How it works */
+    .how-it-works {
+      padding: 90px 0;
+      background: var(--bg-2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .how-it-works h2 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 56px;
+    }
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 32px;
+      position: relative;
+    }
+    .step {
+      text-align: center;
+    }
+    .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px; height: 48px;
+      background: var(--accent-dim);
+      border: 1px solid var(--border-accent);
+      border-radius: 50%;
+      color: var(--accent);
+      font-size: 1rem;
+      font-weight: 800;
+      margin-bottom: 18px;
+    }
+    .step h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .step p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Pricing */
+    .pricing-section {
+      padding: 90px 0;
+      text-align: center;
+    }
+    .pricing-section h2 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+    .pricing-section .section-sub {
+      color: var(--text-muted);
+      margin-bottom: 48px;
+      font-size: 1rem;
+    }
+    .pricing-card {
+      display: inline-block;
+      background: var(--bg-card);
+      border: 1px solid var(--border-accent);
+      border-radius: 24px;
+      padding: 48px 56px;
+      max-width: 480px;
+      width: 100%;
+      position: relative;
+      text-align: left;
+      box-shadow: 0 0 60px rgba(0,212,255,0.08);
+    }
+    .pricing-badge-tag {
+      position: absolute;
+      top: -14px; left: 50%; transform: translateX(-50%);
+      background: var(--accent);
+      color: #000;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 5px 18px;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+    .pricing-price {
+      margin-bottom: 8px;
+    }
+    .pricing-price .amount {
+      font-size: 3.5rem;
+      font-weight: 900;
+      color: var(--accent);
+    }
+    .pricing-price .period {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin-left: 4px;
+    }
+    .pricing-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+    }
+    .pricing-features {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 32px;
+    }
+    .pricing-features li {
+      font-size: 0.93rem;
+      color: var(--text-muted);
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .pricing-features li:last-child { border-bottom: none; }
+    .pricing-features li::before {
+      content: '✓';
+      color: var(--accent);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .pricing-cta-note {
+      font-size: 0.78rem;
+      color: var(--text-faint);
+      text-align: center;
+      margin-top: 14px;
+    }
+
+    /* FAQ */
+    .faq-section {
+      padding: 90px 0;
+      background: var(--bg-2);
+      border-top: 1px solid var(--border);
+    }
+    .faq-section h2 {
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      font-weight: 800;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+    .faq-list { max-width: 680px; margin: 0 auto; }
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+      padding: 22px 0;
+    }
+    .faq-q {
+      font-size: 0.98rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--text);
+      user-select: none;
+    }
+    .faq-q .chevron {
+      transition: transform 0.25s;
+      color: var(--accent);
+      font-size: 1.1rem;
+    }
+    .faq-a {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s;
+    }
+    .faq-item.open .faq-a { max-height: 300px; padding-top: 14px; }
+    .faq-item.open .chevron { transform: rotate(180deg); }
+
+    /* Final CTA */
+    .final-cta {
+      padding: 100px 0;
+      text-align: center;
+      position: relative;
+    }
+    .final-cta::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 300px;
+      background: radial-gradient(ellipse at center, var(--accent-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .final-cta h2 {
+      font-size: clamp(1.9rem, 5vw, 3rem);
+      font-weight: 900;
+      margin-bottom: 16px;
+    }
+    .final-cta p {
+      color: var(--text-muted);
+      margin-bottom: 36px;
+      font-size: 1.05rem;
+    }
+
+    @media (max-width: 600px) {
+      .pricing-card { padding: 36px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV (matches main site) -->
+  <header class="header" id="header">
+    <div class="container">
+      <div class="header-inner">
+        <a href="/" class="logo">Aluetion</a>
+        <nav class="nav-links" id="navLinks">
+          <a href="/">Home</a>
+          <a href="/#services">Services</a>
+          <a href="/#why-us">Why Us</a>
+          <a href="/#contact">Contact</a>
+        </nav>
+        <a href="/onboarding" class="btn btn-sm">Get Started</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="auto-hero">
+    <div class="container">
+      <div class="auto-badge">✦ AI Automation for Local Businesses</div>
+      <h1>We Automate Your Business<br /><span class="accent">So You Can Focus on Growth</span></h1>
+      <p>Appointment reminders, follow-up emails, and review requests. all running on autopilot. <strong>$197/mo. Cancel anytime.</strong></p>
+      <div class="cta-group">
+        <a href="/onboarding" class="btn btn-primary btn-lg">Get Started. $197/mo</a>
+        <a href="#how-it-works" class="btn btn-ghost btn-lg">See How It Works</a>
+      </div>
+      <p class="cta-note">Setup in 24–48 hours · No contracts · Cancel anytime</p>
+    </div>
+  </section>
+
+  <!-- SOCIAL PROOF -->
+  <div class="proof-bar">
+    <span>🏥 <strong>Dentists</strong></span>
+    <span>🦴 <strong>Chiropractors</strong></span>
+    <span>💇 <strong>Salons</strong></span>
+    <span>🏡 <strong>Real Estate Agents</strong></span>
+    <span>🧘 <strong>Wellness Studios</strong></span>
+  </div>
+
+  <!-- WHAT WE AUTOMATE -->
+  <section class="auto-features">
+    <div class="container">
+      <div class="section-label">What We Automate</div>
+      <h2>Three automations that pay for themselves</h2>
+      <p class="section-sub">Each one saves you hours a week and brings more clients back. all running without you lifting a finger.</p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">📅</div>
+          <h3>Appointment Reminders</h3>
+          <p>Automatic SMS and email reminders sent 24h and 2h before every appointment. Reduce no-shows by up to 40%.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📨</div>
+          <h3>Follow-Up Sequences</h3>
+          <p>Automated check-ins after visits. Rebooking happens naturally. without you chasing anyone down.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⭐</div>
+          <h3>Review Requests</h3>
+          <p>Ask happy clients for a Google review 2 hours after their visit. More 5-star reviews, more new clients.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔄</div>
+          <h3>Win-Back Campaigns</h3>
+          <p>Client gone 60+ days? Automated re-engagement sequences bring lapsed clients back without any manual effort.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🎂</div>
+          <h3>Birthday & Anniversary Messages</h3>
+          <p>Auto-send a personal message on their birthday or visit anniversary. Small touch, big loyalty.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🤝</div>
+          <h3>Referral Requests</h3>
+          <p>After a great visit, automatically ask happy clients to refer a friend. with a shareable link ready to go.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🆕</div>
+          <h3>New Client Welcome</h3>
+          <p>First-time clients get a warm welcome series. what to expect, how to prepare, and why they made the right choice.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📋</div>
+          <h3>Pre-Appointment Instructions</h3>
+          <p>Send procedure-specific prep instructions 24h before. Fasting reminders, what to bring, how to dress. fully customized.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🏆</div>
+          <h3>Loyalty Milestones</h3>
+          <p>5th visit, 10th visit. automatically reward your best clients and keep them coming back.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-it-works" id="how-it-works">
+    <div class="container">
+      <h2>Up and running in 48 hours</h2>
+      <div class="steps-grid">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h3>You sign up</h3>
+          <p>Email us and we handle everything. No software to install, no complex setup on your end.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h3>We configure it</h3>
+          <p>Our team connects to your booking system and tailors the messaging to match your brand voice.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h3>It runs itself</h3>
+          <p>Reminders, follow-ups, and review requests go out automatically. you just watch the results come in.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing-section" id="pricing">
+    <div class="container">
+      <h2>Simple, honest pricing</h2>
+      <p class="section-sub">One plan. Everything included. No surprises.</p>
+      <div class="pricing-card">
+        <div class="pricing-badge-tag">Most Popular</div>
+        <div class="pricing-price">
+          <span class="amount">$197</span>
+          <span class="period">/mo</span>
+        </div>
+        <p class="pricing-desc">Full automation suite for one location</p>
+        <ul class="pricing-features">
+          <li>Appointment reminders (SMS + email)</li>
+          <li>Follow-up sequences after visits</li>
+          <li>Google review requests</li>
+          <li>Win-back campaigns (60+ day lapsed clients)</li>
+          <li>Birthday &amp; anniversary messages</li>
+          <li>Referral requests from happy clients</li>
+          <li>New client welcome sequence</li>
+          <li>Pre-appointment prep instructions</li>
+          <li>Loyalty milestone rewards</li>
+          <li>Insurance benefits expiry reminders</li>
+          <li>Custom messaging in your brand voice</li>
+          <li>24–48 hour setup. we handle everything</li>
+          <li>Cancel anytime. no contracts</li>
+        </ul>
+        <a href="/onboarding" class="btn btn-primary" style="width:100%;text-align:center;display:block;">
+          Get Started Today
+        </a>
+      </div>
+      <p class="pricing-cta-note">Questions? Email us at <a href="mailto:hello@aluetion.com" style="color:var(--accent)">hello@aluetion.com</a></p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <div class="container">
+      <h2>Frequently asked questions</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q">What booking systems do you work with? <span class="chevron">▾</span></div>
+          <div class="faq-a">We work with most major booking platforms including Mindbody, Acuity, Jane App, Google Calendar, and more. If you use something else, just ask. we can usually make it work.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">How long does setup take? <span class="chevron">▾</span></div>
+          <div class="faq-a">Most clients are live within 24–48 hours. We handle the entire setup. all we need from you is access to your booking system and a few details about your messaging preferences.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Can I cancel anytime? <span class="chevron">▾</span></div>
+          <div class="faq-a">Yes, absolutely. No contracts, no cancellation fees. Just email us and we'll cancel your subscription with no hassle.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">What if I have multiple locations? <span class="chevron">▾</span></div>
+          <div class="faq-a">The $197/mo plan covers one location. For multiple locations, email us at hello@aluetion.com and we'll put together a custom quote.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Do you write the messages for me? <span class="chevron">▾</span></div>
+          <div class="faq-a">Yes. Our team writes and configures all the messaging in your brand voice. You review and approve before anything goes live.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <div class="container">
+      <h2>Ready to stop chasing clients?</h2>
+      <p>Let the automations handle it. You focus on the work you're actually good at.</p>
+      <a href="/onboarding" class="btn btn-primary btn-lg">Get Started. $197/mo</a>
+      <p style="margin-top:14px;font-size:0.82rem;color:var(--text-faint)">$197/mo · Cancel anytime · Setup in 24–48 hours</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <span class="logo">Aluetion</span>
+          <p class="footer-tagline">We automate the boring stuff.</p>
+        </div>
+        <div class="footer-links">
+          <a href="/">Home</a>
+          <a href="/#services">Services</a>
+          <a href="/#contact">Contact</a>
+          <a href="mailto:hello@aluetion.com">hello@aluetion.com</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Aluetion. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // FAQ accordion
+    document.querySelectorAll('.faq-item').forEach(item => {
+      item.querySelector('.faq-q').addEventListener('click', () => {
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+  </script>
+</body>
+</html>

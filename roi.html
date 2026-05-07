@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ROI Calculator. Aluetion</title>
+  <meta name="description" content="Calculate exactly how much automation saves your business. See your ROI in seconds." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .roi-hero { padding: 120px 0 60px; text-align: center; }
+    .roi-hero h1 { font-size: clamp(2rem,5vw,3rem); font-weight: 900; margin-bottom: 16px; }
+    .roi-hero p { color: var(--text-muted); font-size: 1.05rem; max-width: 500px; margin: 0 auto; }
+
+    .calc-wrap { max-width: 860px; margin: 0 auto; padding: 0 0 80px; }
+    .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+    @media(max-width:640px){ .calc-grid { grid-template-columns: 1fr; } }
+
+    .calc-inputs { background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; padding: 36px; }
+    .calc-inputs h2 { font-size: 1.1rem; font-weight: 700; margin-bottom: 28px; }
+
+    .field { margin-bottom: 22px; }
+    .field label { display: block; font-size: 0.82rem; font-weight: 600; color: var(--text-muted); margin-bottom: 8px; letter-spacing: 0.04em; text-transform: uppercase; }
+    .field input, .field select {
+      width: 100%; background: var(--bg); border: 1px solid var(--border);
+      border-radius: 10px; padding: 12px 16px; color: var(--text);
+      font-size: 1rem; font-family: var(--font); outline: none;
+      transition: border-color 0.2s; box-sizing: border-box;
+    }
+    .field input:focus, .field select:focus { border-color: var(--accent); }
+    .field .hint { font-size: 0.75rem; color: var(--text-faint); margin-top: 5px; }
+
+    .calc-results { background: var(--bg-card); border: 1px solid var(--border-accent); border-radius: 20px; padding: 36px; box-shadow: 0 0 40px rgba(0,212,255,0.08); }
+    .calc-results h2 { font-size: 1.1rem; font-weight: 700; margin-bottom: 28px; color: var(--accent); }
+
+    .result-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border); }
+    .result-row:last-of-type { border-bottom: none; }
+    .result-label { font-size: 0.88rem; color: var(--text-muted); }
+    .result-val { font-size: 1rem; font-weight: 700; color: var(--text); }
+    .result-val.positive { color: #4ade80; }
+    .result-val.negative { color: #f87171; }
+
+    .roi-total { background: var(--accent-dim); border-radius: 12px; padding: 20px; margin-top: 20px; text-align: center; }
+    .roi-total .roi-num { font-size: 2.4rem; font-weight: 900; color: var(--accent); }
+    .roi-total .roi-label { font-size: 0.85rem; color: var(--text-muted); margin-top: 4px; }
+
+    .calc-cta { text-align: center; margin-top: 40px; }
+    .calc-cta p { color: var(--text-muted); margin-bottom: 20px; font-size: 0.95rem; }
+  </style>
+</head>
+<body>
+  <header class="header" id="header">
+    <div class="container">
+      <div class="header-inner">
+        <a href="/" class="logo">Aluetion</a>
+        <nav class="nav-links">
+          <a href="/#products">Products</a>
+          <a href="/automation">Automation</a>
+          <a href="/compare">Compare</a>
+          <a href="/#contact">Contact</a>
+        </nav>
+        <a href="/onboarding" class="btn btn-sm">Get Started</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="roi-hero">
+    <div class="container">
+      <div class="auto-badge">✦ ROI Calculator</div>
+      <h1>See your <span class="accent">exact return</span></h1>
+      <p>Plug in your numbers. See how much automation pays for itself every month.</p>
+    </div>
+  </section>
+
+  <div class="container calc-wrap">
+    <div class="calc-grid">
+      <!-- Inputs -->
+      <div class="calc-inputs">
+        <h2>📊 Your Business Numbers</h2>
+        <div class="field">
+          <label>Appointments per month</label>
+          <input type="number" id="appts" value="120" min="1" />
+          <div class="hint">Total bookings across all staff</div>
+        </div>
+        <div class="field">
+          <label>Average appointment value ($)</label>
+          <input type="number" id="appt-value" value="150" min="1" />
+          <div class="hint">Revenue per appointment</div>
+        </div>
+        <div class="field">
+          <label>Current no-show rate (%)</label>
+          <input type="number" id="noshow" value="12" min="0" max="100" />
+          <div class="hint">Industry avg is 10–15%</div>
+        </div>
+        <div class="field">
+          <label>Current Google reviews</label>
+          <input type="number" id="reviews" value="24" min="0" />
+        </div>
+        <div class="field">
+          <label>Business type</label>
+          <select id="biz-type">
+            <option value="dental">Dental Practice</option>
+            <option value="salon">Salon / Barbershop</option>
+            <option value="chiro">Chiropractic</option>
+            <option value="wellness">Wellness / Fitness</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div class="calc-results">
+        <h2>💰 Your Monthly ROI</h2>
+
+        <div class="result-row">
+          <span class="result-label">Current monthly no-show losses</span>
+          <span class="result-val negative" id="r-noshow-loss">—</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Recovered with 40% fewer no-shows</span>
+          <span class="result-val positive" id="r-noshow-saved">—</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">New reviews per month (est.)</span>
+          <span class="result-val positive" id="r-new-reviews">—</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Win-back revenue (22% lapsed)</span>
+          <span class="result-val positive" id="r-winback">—</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Cost of Aluetion</span>
+          <span class="result-val negative">-$197/mo</span>
+        </div>
+
+        <div class="roi-total">
+          <div class="roi-num" id="r-total">—</div>
+          <div class="roi-label">estimated net gain per month</div>
+        </div>
+
+        <div class="result-row" style="margin-top:16px">
+          <span class="result-label">Payback period</span>
+          <span class="result-val positive" id="r-payback">—</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Annual ROI</span>
+          <span class="result-val positive" id="r-annual">—</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="calc-cta">
+      <p id="cta-message">Ready to start capturing that revenue?</p>
+      <a href="/onboarding" class="btn btn-primary btn-lg">Get Started. $197/mo</a>
+      <p style="font-size:0.78rem;color:var(--text-faint);margin-top:12px">Setup in 24–48 hours · No contracts · Cancel anytime</p>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="logo">Aluetion</span>
+        <p class="footer-tagline">We automate the boring stuff.</p>
+      </div>
+      <div class="footer-links">
+        <a href="/">Home</a><a href="/automation">Automation</a>
+        <a href="/compare">Compare</a><a href="/roi">ROI Calculator</a>
+        <a href="/privacy">Privacy</a><a href="/terms">Terms</a>
+        <a href="mailto:hello@aluetion.com">hello@aluetion.com</a>
+      </div>
+    </div>
+    <div class="container"><p class="footer-copy">© 2026 Aluetion. All rights reserved.</p></div>
+  </footer>
+
+  <script>
+    const $ = id => document.getElementById(id);
+    const fmt = n => '$' + Math.round(n).toLocaleString();
+
+    function calc() {
+      const appts      = parseFloat($('appts').value)      || 0;
+      const val        = parseFloat($('appt-value').value)  || 0;
+      const noshowPct  = parseFloat($('noshow').value)      || 0;
+
+      const noshowLoss   = appts * (noshowPct/100) * val;
+      const noshowSaved  = noshowLoss * 0.40;
+      const newReviews   = Math.round(appts * 0.08); // ~8% leave a review when asked
+      const winbackRev   = appts * 0.05 * 0.22 * val; // 5% lapsed, 22% convert
+      const netGain      = noshowSaved + winbackRev - 197;
+      const paybackDays  = netGain > 0 ? Math.round(197 / (netGain/30)) : null;
+      const annualROI    = netGain * 12;
+
+      $('r-noshow-loss').textContent  = '-' + fmt(noshowLoss);
+      $('r-noshow-saved').textContent = '+' + fmt(noshowSaved);
+      $('r-new-reviews').textContent  = '+' + newReviews + ' reviews';
+      $('r-winback').textContent      = '+' + fmt(winbackRev);
+      $('r-total').textContent        = (netGain >= 0 ? '+' : '') + fmt(netGain);
+      $('r-total').style.color        = netGain >= 0 ? 'var(--accent)' : '#f87171';
+      $('r-payback').textContent      = paybackDays ? paybackDays + ' days' : 'Immediate';
+      $('r-annual').textContent       = '+' + fmt(annualROI) + '/yr';
+
+      $('cta-message').textContent = netGain > 0
+        ? `You're leaving ${fmt(netGain)}/mo on the table. Let's fix that.`
+        : 'Start capturing revenue you\'re currently losing.';
+    }
+
+    ['appts','appt-value','noshow','reviews','biz-type'].forEach(id => {
+      $(id).addEventListener('input', calc);
+    });
+    calc();
+  </script>
+</body>
+</html>

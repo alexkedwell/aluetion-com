@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog. Aluetion</title>
+  <meta name="description" content="Tips, guides, and insights on AI automation for local businesses. Grow your practice without adding staff." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .blog-hero { padding: 120px 0 60px; text-align: center; }
+    .blog-hero h1 { font-size: clamp(2rem,5vw,3rem); font-weight: 900; margin-bottom: 12px; }
+    .blog-hero p { color: var(--text-muted); font-size: 1.05rem; max-width: 500px; margin: 0 auto; }
+    .blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px,1fr)); gap: 28px; padding: 60px 0 100px; }
+    .blog-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+    }
+    .blog-card:hover { border-color: var(--border-accent); transform: translateY(-3px); }
+    .blog-card-banner {
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+      background: var(--bg-2);
+    }
+    .blog-card-body { padding: 24px; flex: 1; display: flex; flex-direction: column; gap: 10px; }
+    .blog-tag { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+    .blog-card-body h3 { font-size: 1.05rem; font-weight: 700; color: var(--text); line-height: 1.4; }
+    .blog-card-body p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.65; flex: 1; }
+    .blog-meta { font-size: 0.75rem; color: var(--text-faint); margin-top: auto; padding-top: 12px; border-top: 1px solid var(--border); }
+  </style>
+</head>
+<body>
+  <header class="header" id="header">
+    <div class="container">
+      <div class="header-inner">
+        <a href="/" class="logo">Aluetion</a>
+        <nav class="nav-links">
+          <a href="/#products">Products</a>
+          <a href="/automation">Automation</a>
+          <a href="/compare">Compare</a>
+          <a href="/roi">ROI Calc</a>
+          <a href="/blog" style="color:var(--accent)">Blog</a>
+        </nav>
+        <a href="/onboarding" class="btn btn-sm">Get Started</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="blog-hero">
+    <div class="container">
+      <div class="auto-badge">✦ Resources</div>
+      <h1>The Automation <span class="accent">Playbook</span></h1>
+      <p>Practical guides for local business owners who want to grow without hiring more staff.</p>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="blog-grid">
+
+      <a href="/blog/no-show-guide" class="blog-card">
+        <div class="blog-card-banner">📅</div>
+        <div class="blog-card-body">
+          <span class="blog-tag">No-Shows</span>
+          <h3>The $2,400/Month Problem No One Talks About: Dental No-Shows</h3>
+          <p>If 12% of your 120 monthly appointments are no-shows, you're losing over $2,400 every month. Here's the exact automation system that cuts that by 40%.</p>
+          <div class="blog-meta">May 2026 · 5 min read</div>
+        </div>
+      </a>
+
+      <a href="/blog/google-reviews-guide" class="blog-card">
+        <div class="blog-card-banner">⭐</div>
+        <div class="blog-card-body">
+          <span class="blog-tag">Reviews</span>
+          <h3>Why Your Happiest Clients Never Leave Reviews (And How to Fix It)</h3>
+          <p>85% of clients would leave a review if asked at the right moment. Most businesses never ask. Here's the timing and messaging that gets 3–5× more reviews.</p>
+          <div class="blog-meta">May 2026 · 4 min read</div>
+        </div>
+      </a>
+
+      <a href="/blog/win-back-campaigns" class="blog-card">
+        <div class="blog-card-banner">🔄</div>
+        <div class="blog-card-body">
+          <span class="blog-tag">Revenue</span>
+          <h3>The Win-Back Campaign That Recovered $8,000 in One Month</h3>
+          <p>22% of clients who haven't visited in 60+ days will rebook if you send the right message. Here's the exact sequence we use.</p>
+          <div class="blog-meta">May 2026 · 6 min read</div>
+        </div>
+      </a>
+
+      <a href="/blog/insurance-benefits-dental" class="blog-card">
+        <div class="blog-card-banner">🦷</div>
+        <div class="blog-card-body">
+          <span class="blog-tag">Dental</span>
+          <h3>The November Email That Fills Your December Schedule</h3>
+          <p>Most dental patients let their insurance benefits expire every January 1st. an average of $1,200 per patient. One automated email campaign changes that.</p>
+          <div class="blog-meta">May 2026 · 4 min read</div>
+        </div>
+      </a>
+
+      <a href="/blog/clay-alternative" class="blog-card">
+        <div class="blog-card-banner">🧹</div>
+        <div class="blog-card-body">
+          <span class="blog-tag">Data Cleaning</span>
+          <h3>Clay Is $149/Month. We Do the Same Thing for $29.</h3>
+          <p>Clay is great. if you're a B2B sales team with a dedicated RevOps person. For everyone else, there's a simpler, cheaper way to clean and enrich your data.</p>
+          <div class="blog-meta">May 2026 · 5 min read</div>
+        </div>
+      </a>
+
+      <a href="/blog/salon-automation-guide" class="blog-card">
+        <div class="blog-card-banner">💇</div>
+        <div class="blog-card-body">
+          <span class="blog-tag">Salons</span>
+          <h3>How a 3-Chair Salon Added $1,800/Month Without New Clients</h3>
+          <p>More appointments from existing clients, fewer no-shows, and a steady stream of Google reviews. all automated. Here's the full breakdown.</p>
+          <div class="blog-meta">May 2026 · 5 min read</div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="logo">Aluetion</span>
+        <p class="footer-tagline">We automate the boring stuff.</p>
+      </div>
+      <div class="footer-links">
+        <a href="/">Home</a><a href="/automation">Automation</a>
+        <a href="/compare">Compare</a><a href="/roi">ROI Calculator</a>
+        <a href="/blog">Blog</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a>
+        <a href="mailto:hello@aluetion.com">hello@aluetion.com</a>
+      </div>
+    </div>
+    <div class="container"><p class="footer-copy">© 2026 Aluetion. All rights reserved.</p></div>
+  </footer>
+</body>
+</html>
