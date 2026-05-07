@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CRM Enrichment — Auto-Fill HubSpot & Salesforce | Aluetion</title>
+  <meta name="description" content="Connect HubSpot or Salesforce. AI auto-fills missing contact fields — emails, phones, titles, company data. Flat rate, unlimited enrichment runs." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .page-hero { padding: 120px 0 80px; text-align: center; position: relative; }
+    .page-hero::before {
+      content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 700px; height: 400px;
+      background: radial-gradient(ellipse at center, var(--accent-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .page-badge {
+      display: inline-block; background: var(--accent-dim); border: 1px solid var(--border-accent);
+      color: var(--accent); font-size: 0.78rem; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 6px 16px; border-radius: 100px; margin-bottom: 28px;
+    }
+    .page-hero h1 { font-size: clamp(2.4rem, 6vw, 4rem); font-weight: 900; line-height: 1.1; margin-bottom: 20px; }
+    .page-hero h1 .accent { color: var(--accent); }
+    .page-hero > .container > p { font-size: 1.15rem; color: var(--text-muted); max-width: 560px; margin: 0 auto 36px; line-height: 1.7; }
+    .cta-group { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .cta-note { margin-top: 14px; font-size: 0.82rem; color: var(--text-faint); }
+
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 56px; }
+    .feature-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 32px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .feature-card:hover { border-color: var(--border-accent); transform: translateY(-3px); }
+    .feature-icon { font-size: 2rem; margin-bottom: 18px; }
+    .feature-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; }
+    .feature-card p { font-size: 0.93rem; color: var(--text-muted); line-height: 1.65; }
+
+    .crm-logos { padding: 60px 0; background: var(--bg-2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); text-align: center; }
+    .crm-logos h2 { font-size: 1.4rem; font-weight: 800; margin-bottom: 32px; }
+    .logo-row { display: flex; gap: 48px; justify-content: center; flex-wrap: wrap; align-items: center; }
+    .crm-logo-badge {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 16px 32px;
+      font-size: 1.1rem; font-weight: 700; color: var(--text);
+      display: flex; align-items: center; gap: 10px;
+    }
+
+    .how-section { padding: 90px 0; }
+    .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 32px; margin-top: 56px; }
+    .step { text-align: center; }
+    .step-num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 48px; height: 48px;
+      background: var(--accent-dim); border: 1px solid var(--border-accent);
+      border-radius: 50%; color: var(--accent); font-size: 1rem; font-weight: 800; margin-bottom: 18px;
+    }
+    .step h3 { font-size: 1rem; font-weight: 700; margin-bottom: 10px; }
+    .step p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; }
+
+    .pricing-section { padding: 90px 0; text-align: center; background: var(--bg-2); border-top: 1px solid var(--border); }
+    .pricing-card-single {
+      display: inline-block; background: var(--bg-card); border: 1px solid var(--border-accent);
+      border-radius: 24px; padding: 48px 56px; max-width: 500px; width: 100%;
+      text-align: left; position: relative;
+      box-shadow: 0 0 60px rgba(0,212,255,0.08);
+    }
+    .pricing-badge-top {
+      position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+      background: var(--accent); color: #000;
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 5px 18px; border-radius: 100px; white-space: nowrap;
+    }
+    .pricing-amount-lg { font-size: 3.5rem; font-weight: 900; color: var(--accent); }
+    .pricing-amount-lg span { font-size: 1rem; font-weight: 500; color: var(--text-muted); }
+    .pricing-features { list-style: none; padding: 0; margin: 24px 0 32px; }
+    .pricing-features li { font-size: 0.93rem; color: var(--text-muted); padding: 8px 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
+    .pricing-features li:last-child { border-bottom: none; }
+    .pricing-features li::before { content: '✓'; color: var(--accent); font-weight: 700; flex-shrink: 0; }
+
+    .final-cta { padding: 100px 0; text-align: center; position: relative; }
+    .final-cta::before {
+      content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 300px;
+      background: radial-gradient(ellipse at center, var(--accent-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .final-cta h2 { font-size: clamp(1.9rem, 5vw, 3rem); font-weight: 900; margin-bottom: 16px; }
+    .final-cta p { color: var(--text-muted); margin-bottom: 36px; font-size: 1.05rem; }
+
+    @media (max-width: 600px) { .pricing-card-single { padding: 36px 24px; } }
+  </style>
+</head>
+<body>
+
+  <header class="header" id="header">
+    <div class="container">
+      <div class="header-inner">
+        <a href="/" class="logo">Aluetion</a>
+        <nav class="nav-links" id="navLinks">
+          <a href="/">Home</a>
+          <a href="/#services">Services</a>
+          <a href="/compare">Compare</a>
+          <a href="/#contact">Contact</a>
+        </nav>
+        <a href="/#contact" class="btn btn-sm">Get Started</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="container">
+      <div class="page-badge">✦ CRM Enrichment</div>
+      <h1>Your CRM. <span class="accent">Auto-Filled.</span></h1>
+      <p>Connect HubSpot or Salesforce. Our AI finds every missing contact field — emails, phones, job titles, company size — and writes it back automatically. No manual research. No data entry.</p>
+      <div class="cta-group">
+        <a href="/#contact" class="btn btn-primary btn-lg">Connect My CRM</a>
+        <a href="#how-it-works" class="btn btn-ghost btn-lg">See How It Works</a>
+      </div>
+      <p class="cta-note">$99/mo per CRM · Unlimited enrichment runs · Cancel anytime</p>
+    </div>
+  </section>
+
+  <section class="crm-logos">
+    <div class="container">
+      <h2>Works with your CRM</h2>
+      <div class="logo-row">
+        <div class="crm-logo-badge">🟠 HubSpot</div>
+        <div class="crm-logo-badge">☁️ Salesforce</div>
+        <div class="crm-logo-badge">📋 Pipedrive</div>
+        <div class="crm-logo-badge">🔷 Zoho CRM</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="section-tag">What Gets Filled</span>
+        <h2>Every blank field, fixed automatically</h2>
+        <p class="section-sub">Stop staring at half-empty contact records. AI fills in what's missing so your team can focus on selling.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card fade-up">
+          <div class="feature-icon">📧</div>
+          <h3>Email Addresses</h3>
+          <p>Missing work emails found and verified. Added directly to the contact record in your CRM.</p>
+        </div>
+        <div class="feature-card fade-up">
+          <div class="feature-icon">📞</div>
+          <h3>Phone Numbers</h3>
+          <p>Direct dials and mobile numbers sourced from public data and verified before being written to your CRM.</p>
+        </div>
+        <div class="feature-card fade-up">
+          <div class="feature-icon">💼</div>
+          <h3>Job Titles &amp; Departments</h3>
+          <p>Current role, seniority level, and department. Know who you're talking to before you pick up the phone.</p>
+        </div>
+        <div class="feature-card fade-up">
+          <div class="feature-icon">🏢</div>
+          <h3>Company Data</h3>
+          <p>Employee count, annual revenue, industry, website, and headquarters location — all auto-populated.</p>
+        </div>
+        <div class="feature-card fade-up">
+          <div class="feature-icon">🔗</div>
+          <h3>LinkedIn &amp; Social Profiles</h3>
+          <p>LinkedIn URLs added to every contact so your team can connect on multiple channels without manual searching.</p>
+        </div>
+        <div class="feature-card fade-up">
+          <div class="feature-icon">🔄</div>
+          <h3>Ongoing Enrichment</h3>
+          <p>New contacts added to your CRM get enriched automatically. Your data stays fresh without any manual effort.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="how-section" id="how-it-works" style="background:var(--bg-2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="section-tag">How It Works</span>
+        <h2>Connect once. Runs forever.</h2>
+      </div>
+      <div class="steps-grid">
+        <div class="step fade-up">
+          <div class="step-num">1</div>
+          <h3>Connect your CRM</h3>
+          <p>Authorize HubSpot or Salesforce with a single click. Takes 60 seconds. We never store your CRM data.</p>
+        </div>
+        <div class="step fade-up">
+          <div class="step-num">2</div>
+          <h3>AI scans &amp; enriches</h3>
+          <p>Our AI reviews every contact with missing fields and fills them in from verified sources. First run completes in hours, not days.</p>
+        </div>
+        <div class="step fade-up">
+          <div class="step-num">3</div>
+          <h3>Stays up to date</h3>
+          <p>New contacts are enriched automatically. Monthly re-checks keep your existing data from going stale.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pricing-section" id="pricing">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="section-tag">Pricing</span>
+        <h2>Flat rate per CRM connection</h2>
+        <p class="section-sub">One price. Unlimited enrichment runs. No credits to buy, no rows to count.</p>
+      </div>
+      <div class="pricing-card-single fade-up">
+        <div class="pricing-badge-top">Flat Rate — No Credits</div>
+        <div class="pricing-amount-lg">$99<span>/mo per CRM</span></div>
+        <p style="font-size:0.9rem;color:var(--text-muted);margin-top:12px">Full enrichment suite for one CRM connection</p>
+        <ul class="pricing-features">
+          <li>Connect HubSpot or Salesforce</li>
+          <li>Enrich all existing contacts</li>
+          <li>Auto-enrich new contacts as they're added</li>
+          <li>Emails, phones, titles, company data</li>
+          <li>LinkedIn profile matching</li>
+          <li>Monthly data refresh runs</li>
+          <li>Unlimited enrichment — same flat rate</li>
+          <li>Cancel anytime. No contracts.</li>
+        </ul>
+        <a href="/#contact" class="btn btn-primary" style="width:100%;text-align:center;display:block;">Connect My CRM</a>
+      </div>
+      <p style="font-size:0.82rem;color:var(--text-faint);margin-top:20px">Multiple CRMs? <a href="/#contact" style="color:var(--accent)">Contact us</a> for a bundle rate.</p>
+    </div>
+  </section>
+
+  <section class="final-cta">
+    <div class="container">
+      <h2>Your CRM shouldn't be half-empty.</h2>
+      <p>Connect once. AI fills in everything. $99/mo, unlimited enrichment runs.</p>
+      <a href="/#contact" class="btn btn-primary btn-lg">Connect My CRM Now</a>
+      <p style="margin-top:14px;font-size:0.82rem;color:var(--text-faint)">$99/mo per CRM connection · Unlimited enrichment · Cancel anytime</p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="logo">Aluetion</span>
+        <p class="footer-tagline">We automate the boring stuff.</p>
+      </div>
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="/automation">Automation</a>
+        <a href="/compare">Compare</a>
+        <a href="/lead-enrichment">Lead Enrichment</a>
+        <a href="/crm-enrichment">CRM Enrichment</a>
+        <a href="/email-verification">Email Verification</a>
+        <a href="/privacy">Privacy</a>
+        <a href="mailto:hello@aluetion.com">hello@aluetion.com</a>
+      </div>
+    </div>
+    <div class="container"><p class="footer-copy">© 2026 Aluetion. All rights reserved.</p></div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

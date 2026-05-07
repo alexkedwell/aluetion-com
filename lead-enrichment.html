@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lead Enrichment — Flat Rate, No Credits | Aluetion</title>
+  <meta name="description" content="Upload company names or domains. Get back emails, phones, LinkedIn profiles, company size, and revenue. Flat monthly rate — no credits, no surprises." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .page-hero {
+      padding: 120px 0 80px;
+      text-align: center;
+      position: relative;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%; transform: translateX(-50%);
+      width: 700px; height: 400px;
+      background: radial-gradient(ellipse at center, var(--accent-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .page-badge {
+      display: inline-block;
+      background: var(--accent-dim);
+      border: 1px solid var(--border-accent);
+      color: var(--accent);
+      font-size: 0.78rem; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 6px 16px; border-radius: 100px;
+      margin-bottom: 28px;
+    }
+    .page-hero h1 { font-size: clamp(2.4rem, 6vw, 4rem); font-weight: 900; line-height: 1.1; margin-bottom: 20px; }
+    .page-hero h1 .accent { color: var(--accent); }
+    .page-hero > .container > p { font-size: 1.15rem; color: var(--text-muted); max-width: 560px; margin: 0 auto 36px; line-height: 1.7; }
+    .cta-group { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .cta-note { margin-top: 14px; font-size: 0.82rem; color: var(--text-faint); }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px; margin-top: 56px;
+    }
+    .feature-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 32px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .feature-card:hover { border-color: var(--border-accent); transform: translateY(-3px); }
+    .feature-icon { font-size: 2rem; margin-bottom: 18px; }
+    .feature-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; }
+    .feature-card p { font-size: 0.93rem; color: var(--text-muted); line-height: 1.65; }
+
+    .how-section {
+      padding: 90px 0;
+      background: var(--bg-2);
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    }
+    .steps-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 32px; margin-top: 56px;
+    }
+    .step { text-align: center; }
+    .step-num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 48px; height: 48px;
+      background: var(--accent-dim); border: 1px solid var(--border-accent);
+      border-radius: 50%; color: var(--accent); font-size: 1rem; font-weight: 800;
+      margin-bottom: 18px;
+    }
+    .step h3 { font-size: 1rem; font-weight: 700; margin-bottom: 10px; }
+    .step p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; }
+
+    .diff-section { padding: 80px 0; }
+    .diff-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 32px; margin-top: 48px;
+    }
+    .diff-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 32px; }
+    .diff-card.them { border-color: rgba(248,113,113,0.3); }
+    .diff-card.us { border-color: var(--border-accent); }
+    .diff-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 16px; }
+    .diff-card.them .diff-label { color: #f87171; }
+    .diff-card.us .diff-label { color: var(--accent); }
+    .diff-card h3 { font-size: 1.2rem; font-weight: 800; margin-bottom: 12px; }
+    .diff-card ul { list-style: none; padding: 0; }
+    .diff-card ul li { font-size: 0.9rem; color: var(--text-muted); padding: 6px 0; }
+    .diff-card.them ul li::before { content: '✗ '; color: #f87171; font-weight: 700; }
+    .diff-card.us ul li::before { content: '✓ '; color: var(--accent); font-weight: 700; }
+    @media (max-width: 600px) { .diff-grid { grid-template-columns: 1fr; } }
+
+    .pricing-section { padding: 90px 0; text-align: center; }
+    .pricing-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px; max-width: 960px; margin: 48px auto 0;
+    }
+    .pricing-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 20px; padding: 36px 28px; text-align: left; position: relative;
+    }
+    .pricing-card.featured { border-color: var(--border-accent); box-shadow: 0 0 40px rgba(0,212,255,0.1); }
+    .pricing-tier { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
+    .pricing-amount { font-size: 2.8rem; font-weight: 900; color: var(--accent); }
+    .pricing-amount span { font-size: 1rem; font-weight: 500; color: var(--text-muted); }
+    .pricing-desc { font-size: 0.9rem; color: var(--text-muted); margin: 12px 0 24px; }
+    .pricing-features { list-style: none; padding: 0; margin: 0 0 28px; }
+    .pricing-features li { font-size: 0.9rem; color: var(--text-muted); padding: 8px 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
+    .pricing-features li:last-child { border-bottom: none; }
+    .pricing-features li::before { content: '✓'; color: var(--accent); font-weight: 700; flex-shrink: 0; }
+    .popular-badge {
+      position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+      background: var(--accent); color: #000;
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 5px 18px; border-radius: 100px; white-space: nowrap;
+    }
+
+    .final-cta { padding: 100px 0; text-align: center; position: relative; }
+    .final-cta::before {
+      content: ''; position: absolute;
+      top: 0; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 300px;
+      background: radial-gradient(ellipse at center, var(--accent-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .final-cta h2 { font-size: clamp(1.9rem, 5vw, 3rem); font-weight: 900; margin-bottom: 16px; }
+    .final-cta p { color: var(--text-muted); margin-bottom: 36px; font-size: 1.05rem; }
+  </style>
+</head>
+<body>
+
+  <header class="header" id="header">
+    <div class="container">
+      <div class="header-inner">
+        <a href="/" class="logo">Aluetion</a>
+        <nav class="nav-links" id="navLinks">
+          <a href="/">Home</a>
+          <a href="/#services">Services</a>
+          <a href="/compare">Compare</a>
+          <a href="/#contact">Contact</a>
+        </nav>
+        <a href="/#contact" class="btn btn-sm">Get Started</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="container">
+      <div class="page-badge">✦ Lead Enrichment</div>
+      <h1>Upload a List.<br /><span class="accent">Get Back Real Intel.</span></h1>
+      <p>Drop in company names or domains. We return verified emails, direct phones, LinkedIn profiles, company size, and revenue — flat rate, no credits, no surprises.</p>
+      <div class="cta-group">
+        <a href="/#contact" class="btn btn-primary btn-lg">Start Free — 50 Rows</a>
+        <a href="#pricing" class="btn btn-ghost btn-lg">See Pricing</a>
+      </div>
+      <p class="cta-note">50 rows free · No credit card · Flat monthly rate</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="section-tag">What You Get</span>
+        <h2>Every field that matters for outreach</h2>
+        <p class="section-sub">Stop guessing. Get verified data that actually reaches decision-makers.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card fade-up">
+          <div class="feature-icon">📧</div>
+          <h3>Verified Emails</h3>
+          <p>Direct work emails for each contact, verified before delivery. No bounces. No wasted sends.</p>
+        </div>
+        <div class="feature-card fade-up">
+          <div class="feature-icon">📞</div>
+          <h3>Direct Phone Numbers</h3>
+          <p>Mobile and direct-dial numbers — not just company switchboards. Reach the person, not the gatekeeper.</p>
+        </div>
+        <div class="feature-card fade-up">
+          <div class="feature-icon">🔗</div>
+          <h3>LinkedIn Profiles</h3>
+          <p>Verified LinkedIn URLs for every contact. Multi-channel outreach ready out of the box.</p>
+        </div>
+        <div class="feature-card fade-up">
+          <div class="feature-icon">🏢</div>
+          <h3>Company Size &amp; Revenue</h3>
+          <p>Employee headcount, annual revenue estimates, industry classification. Know who you're pitching before you pitch.</p>
+        </div>
+        <div class="feature-card fade-up">
+          <div class="feature-icon">🌐</div>
+          <h3>Tech Stack &amp; Signals</h3>
+          <p>What tools they use, recent funding, hiring signals. Context that makes your outreach actually relevant.</p>
+        </div>
+        <div class="feature-card fade-up">
+          <div class="feature-icon">📊</div>
+          <h3>Clean CSV Export</h3>
+          <p>Download your enriched list as CSV or Excel. Ready to import into your CRM, sequencer, or sales tool.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="how-section">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="section-tag">How It Works</span>
+        <h2>Three steps. Done in minutes.</h2>
+      </div>
+      <div class="steps-grid">
+        <div class="step fade-up">
+          <div class="step-num">1</div>
+          <h3>Upload your list</h3>
+          <p>Drop in a CSV with company names, domains, or contact names. Any format works.</p>
+        </div>
+        <div class="step fade-up">
+          <div class="step-num">2</div>
+          <h3>We enrich it</h3>
+          <p>Our AI cross-references 50+ data sources to fill in every field — emails, phones, LinkedIn, company data.</p>
+        </div>
+        <div class="step fade-up">
+          <div class="step-num">3</div>
+          <h3>Download and go</h3>
+          <p>Get your enriched file back in minutes. Import into HubSpot, Salesforce, or your outreach tool of choice.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="diff-section" style="background:var(--bg-2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:80px 0">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="section-tag">Why Aluetion</span>
+        <h2>The only flat-rate enrichment tool</h2>
+        <p class="section-sub">Clay charges per credit. We charge per month. That's the whole difference.</p>
+      </div>
+      <div class="diff-grid">
+        <div class="diff-card them fade-up">
+          <div class="diff-label">Clay / Apollo / ZoomInfo</div>
+          <h3>Credit-based pricing</h3>
+          <ul>
+            <li>$149–$800+/mo to start</li>
+            <li>Credits expire every month</li>
+            <li>Pay more as you grow</li>
+            <li>Steep learning curve</li>
+            <li>Built for enterprise GTM teams</li>
+            <li>Surprise overage charges</li>
+          </ul>
+        </div>
+        <div class="diff-card us fade-up">
+          <div class="diff-label">Aluetion</div>
+          <h3>Flat monthly rate</h3>
+          <ul>
+            <li>$49/mo Pro, unlimited rows</li>
+            <li>No credits, no expiry</li>
+            <li>Same price no matter how much you enrich</li>
+            <li>Upload and go — no training needed</li>
+            <li>Built for small business &amp; agencies</li>
+            <li>Zero surprises on your bill</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pricing-section" id="pricing">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="section-tag">Pricing</span>
+        <h2>Flat rate. No credits. Ever.</h2>
+        <p class="section-sub">Pick a plan. Enrich as much as you want. Your bill never changes.</p>
+      </div>
+      <div class="pricing-grid">
+        <div class="pricing-card fade-up">
+          <div class="pricing-tier">Free</div>
+          <div class="pricing-amount">$0<span>/mo</span></div>
+          <p class="pricing-desc">Get started with no commitment</p>
+          <ul class="pricing-features">
+            <li>50 rows per upload</li>
+            <li>Emails + phones</li>
+            <li>LinkedIn profiles</li>
+            <li>Company size</li>
+            <li>CSV export</li>
+          </ul>
+          <a href="/#contact" class="btn btn-ghost" style="width:100%;text-align:center;display:block;">Start Free</a>
+        </div>
+        <div class="pricing-card featured fade-up">
+          <div class="popular-badge">Most Popular</div>
+          <div class="pricing-tier">Pro</div>
+          <div class="pricing-amount">$49<span>/mo</span></div>
+          <p class="pricing-desc">Unlimited enrichment. Flat rate.</p>
+          <ul class="pricing-features">
+            <li>Unlimited rows</li>
+            <li>Emails, phones, LinkedIn</li>
+            <li>Company size &amp; revenue</li>
+            <li>Tech stack signals</li>
+            <li>Hiring &amp; funding signals</li>
+            <li>CSV + Excel export</li>
+            <li>Cancel anytime</li>
+          </ul>
+          <a href="/#contact" class="btn btn-primary" style="width:100%;text-align:center;display:block;">Get Pro</a>
+        </div>
+        <div class="pricing-card fade-up">
+          <div class="pricing-tier">Agency</div>
+          <div class="pricing-amount">$149<span>/mo</span></div>
+          <p class="pricing-desc">For teams and client work</p>
+          <ul class="pricing-features">
+            <li>Everything in Pro</li>
+            <li>API access</li>
+            <li>Multi-seat access</li>
+            <li>White-label exports</li>
+            <li>Priority support</li>
+            <li>Custom integrations</li>
+          </ul>
+          <a href="/#contact" class="btn btn-ghost" style="width:100%;text-align:center;display:block;">Contact Us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="final-cta">
+    <div class="container">
+      <h2>Stop paying per credit.</h2>
+      <p>Try lead enrichment free — 50 rows, no card required. Upgrade when you're ready.</p>
+      <a href="/#contact" class="btn btn-primary btn-lg">Start Free Today</a>
+      <p style="margin-top:14px;font-size:0.82rem;color:var(--text-faint)">50 rows free · Pro $49/mo · Agency $149/mo · Cancel anytime</p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="logo">Aluetion</span>
+        <p class="footer-tagline">We automate the boring stuff.</p>
+      </div>
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="/automation">Automation</a>
+        <a href="/compare">Compare</a>
+        <a href="/lead-enrichment">Lead Enrichment</a>
+        <a href="/email-verification">Email Verification</a>
+        <a href="/contact-finder">Contact Finder</a>
+        <a href="/privacy">Privacy</a>
+        <a href="mailto:hello@aluetion.com">hello@aluetion.com</a>
+      </div>
+    </div>
+    <div class="container"><p class="footer-copy">© 2026 Aluetion. All rights reserved.</p></div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
