@@ -550,6 +550,8 @@
             <div class="summary-row"><span>Subscription</span><span style="color:var(--accent);font-weight:700">$197/mo · Cancel anytime</span></div>
             <div class="summary-row"><span>Setup time</span><span>24–48 hours</span></div>
           </div>
+          <!-- Honeypot: hidden from real users, bots fill it in -->
+          <input type="text" id="_gotcha" name="_gotcha" style="display:none;position:absolute;left:-9999px" tabindex="-1" autocomplete="off">
           <div class="step-nav">
             <button class="btn-back" onclick="goToStep(4)">← Back</button>
             <button class="btn btn-primary" id="submitBtn" onclick="submitForm()">✓ Submit & Get Started</button>
@@ -677,8 +679,16 @@
         brandVoice: document.getElementById('brandVoice').value,
         automations: automations.join(', '),
         notes: document.getElementById('notes').value,
-        _subject: 'New Signup: ' + document.getElementById('businessName').value + '. $197/mo'
+        _subject: 'New Signup: ' + document.getElementById('businessName').value + '. $197/mo',
+        _gotcha: document.getElementById('_gotcha')?.value || ''
       };
+
+      // Honeypot — bots fill hidden fields, humans don't
+      if (document.getElementById('_gotcha')?.value) {
+        btn.textContent = '✓ Submit & Get Started';
+        btn.disabled = false;
+        return; // silently reject bots
+      }
 
       try {
         const res = await fetch('https://formspree.io/f/xzdovgla', {

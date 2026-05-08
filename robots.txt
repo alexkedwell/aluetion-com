@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /.env
+Disallow: /.git/
+
+Sitemap: https://aluetion.com/sitemap.xml
