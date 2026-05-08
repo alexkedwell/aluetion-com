@@ -6,7 +6,6 @@
     { "source": "/onboarding", "destination": "/onboarding.html" },
     { "source": "/privacy", "destination": "/privacy.html" },
     { "source": "/terms", "destination": "/terms.html" },
-    { "source": "/compare", "destination": "/compare.html" },
     { "source": "/roi", "destination": "/roi.html" },
     { "source": "/dentists", "destination": "/dentists.html" },
     { "source": "/salons", "destination": "/salons.html" },
