@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Website Security Audit — Headers, SSL, DNS, Subdomains & More | Aluetion</title>
+  <meta name="description" content="Automated + expert security audit for your website. We scan security headers, SSL/TLS, exposed files, DNS records, subdomain takeover risks, and JS secrets. Flat-rate, written report, evidence included." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .page-hero {
+      padding: 120px 0 80px;
+      text-align: center;
+      position: relative;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%; transform: translateX(-50%);
+      width: 700px; height: 400px;
+      background: radial-gradient(ellipse at center, var(--accent-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .page-badge {
+      display: inline-block;
+      background: var(--accent-dim);
+      border: 1px solid var(--border-accent);
+      color: var(--accent);
+      font-size: 0.78rem; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 6px 16px; border-radius: 100px;
+      margin-bottom: 28px;
+    }
+    .page-hero h1 { font-size: clamp(2.4rem, 6vw, 4rem); font-weight: 900; line-height: 1.1; margin-bottom: 20px; }
+    .page-hero h1 .accent { color: var(--accent); }
+    .page-hero > .container > p { font-size: 1.15rem; color: var(--text-muted); max-width: 580px; margin: 0 auto 36px; line-height: 1.7; }
+    .cta-group { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .cta-note { margin-top: 14px; font-size: 0.82rem; color: var(--text-faint); }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px; margin-top: 56px;
+    }
+    .feature-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 32px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .feature-card:hover { border-color: var(--border-accent); transform: translateY(-3px); }
+    .feature-icon { font-size: 2rem; margin-bottom: 18px; }
+    .feature-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; }
+    .feature-card p { font-size: 0.93rem; color: var(--text-muted); line-height: 1.65; }
+
+    .how-section {
+      padding: 90px 0;
+      background: var(--bg-2);
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    }
+    .steps-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 32px; margin-top: 56px;
+    }
+    .step { text-align: center; }
+    .step-num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 48px; height: 48px;
+      background: var(--accent-dim); border: 1px solid var(--border-accent);
+      border-radius: 50%; color: var(--accent); font-size: 1rem; font-weight: 800;
+      margin-bottom: 18px;
+    }
+    .step h3 { font-size: 1rem; font-weight: 700; margin-bottom: 10px; }
+    .step p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; }
+
+    .deliverables-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px; margin-top: 48px;
+    }
+    .deliverable-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 14px; padding: 28px;
+    }
+    .deliverable-card .check { color: var(--accent); font-size: 1.3rem; font-weight: 900; margin-bottom: 10px; }
+    .deliverable-card h4 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .deliverable-card p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; margin: 0; }
+
+    .honest-box {
+      background: var(--bg-card); border: 1px solid var(--border-accent);
+      border-radius: 16px; padding: 36px; margin-top: 48px;
+    }
+    .honest-box h3 { font-size: 1.1rem; font-weight: 800; margin-bottom: 16px; color: var(--accent); }
+    .honest-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .honest-cols ul { list-style: none; padding: 0; }
+    .honest-cols ul li { font-size: 0.9rem; color: var(--text-muted); padding: 5px 0; }
+    .honest-cols ul.yes li::before { content: '✓ '; color: var(--accent); font-weight: 700; }
+    .honest-cols ul.no li::before { content: '✗ '; color: #f87171; font-weight: 700; }
+    .honest-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
+    .honest-label.yes { color: var(--accent); }
+    .honest-label.no { color: #f87171; }
+    @media (max-width: 600px) { .honest-cols { grid-template-columns: 1fr; } }
+
+    .severity-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px; margin-top: 40px;
+    }
+    .severity-badge { border-radius: 12px; padding: 20px 24px; text-align: center; }
+    .severity-badge.critical { background: rgba(239,68,68,0.12); border: 1px solid rgba(239,68,68,0.3); }
+    .severity-badge.high    { background: rgba(249,115,22,0.12); border: 1px solid rgba(249,115,22,0.3); }
+    .severity-badge.medium  { background: rgba(234,179,8,0.12);  border: 1px solid rgba(234,179,8,0.3); }
+    .severity-badge.low     { background: rgba(34,197,94,0.12);  border: 1px solid rgba(34,197,94,0.3); }
+    .severity-badge .label  { font-size: 0.75rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
+    .severity-badge.critical .label { color: #ef4444; }
+    .severity-badge.high    .label  { color: #f97316; }
+    .severity-badge.medium  .label  { color: #eab308; }
+    .severity-badge.low     .label  { color: #22c55e; }
+    .severity-badge .desc { font-size: 0.82rem; color: var(--text-muted); margin-top: 6px; }
+
+    .pricing-section { padding: 90px 0; text-align: center; }
+    .pricing-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px; max-width: 900px; margin: 48px auto 0;
+    }
+    .pricing-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 20px; padding: 36px 28px; text-align: left; position: relative;
+    }
+    .pricing-card.featured { border-color: var(--border-accent); box-shadow: 0 0 40px rgba(0,212,255,0.1); }
+    .pricing-tier { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
+    .pricing-amount { font-size: 2.8rem; font-weight: 900; color: var(--accent); }
+    .pricing-amount span { font-size: 1rem; font-weight: 500; color: var(--text-muted); }
+    .pricing-desc { font-size: 0.9rem; color: var(--text-muted); margin: 12px 0 24px; }
+    .pricing-features { list-style: none; padding: 0; margin: 0 0 28px; }
+    .pricing-features li { font-size: 0.9rem; color: var(--text-muted); padding: 8px 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
+    .pricing-features li:last-child { border-bottom: none; }
+    .pricing-features li::before { content: '✓'; color: var(--accent); font-weight: 700; flex-shrink: 0; }
+    .popular-badge {
+      position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+      background: var(--accent); color: #000;
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 5px 18px; border-radius: 100px; white-space: nowrap;
+    }
+    .final-cta { padding: 100px 0; text-align: center; position: relative; }
+    .final-cta::before {
+      content: ''; position: absolute;
+      top: 0; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 300px;
+      background: radial-gradient(ellipse at center, var(--accent-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .final-cta h2 { font-size: clamp(1.9rem, 5vw, 3rem); font-weight: 900; margin-bottom: 16px; }
+    .final-cta p { color: var(--text-muted); margin-bottom: 36px; font-size: 1.05rem; }
+  </style>
+</head>
+<body>
+
+  <header class="header" id="header">
+    <div class="container">
+      <div class="header-inner">
+        <a href="/" class="logo">Aluetion</a>
+        <nav class="nav-links" id="navLinks">
+          <a href="/">Home</a>
+          <a href="/#services">Services</a>
+          
+          <a href="/#contact">Contact</a>
+        </nav>
+        <a href="/#contact" class="btn btn-sm">Get Started</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="container">
+      <div class="page-badge">🔐 Security Audit</div>
+      <h1>Find Your Vulnerabilities<br /><span class="accent">Before Attackers Do</span></h1>
+      <p>Automated scanning + expert review of your web-facing attack surface. Security headers, SSL, DNS, subdomains, exposed files, and JS secrets — full written report with evidence and exact fixes.</p>
+      <div class="cta-group">
+        <a href="/#contact" class="btn btn-primary btn-lg">Get a Security Audit</a>
+        <a href="#pricing" class="btn btn-ghost btn-lg">See Pricing</a>
+      </div>
+      <p class="cta-note">Written report · Screenshot evidence · Fix verification included · Web surface only</p>
+    </div>
+  </section>
+
+  <!-- WHAT WE CHECK -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="section-tag">What We Check</span>
+        <h2>Every check we actually run</h2>
+        <p class="section-sub">These are real, automated checks we run on your domain — not marketing bullets. Every finding includes the exact evidence we found.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card fade-up">
+          <div class="feature-icon">🛡️</div>
+          <h3>Security Headers</h3>
+          <p>CSP, HSTS, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy, and CORS. We check presence and validate values — like whether CSP allows <code>unsafe-inline</code> or HSTS has a too-short max-age.</p>
+        </div>
+        <div class="feature-card fade-up">
+          <div class="feature-icon">🔒</div>
+          <h3>SSL/TLS Configuration</h3>
+          <p>Certificate validity, days until expiry, negotiated protocol (TLS 1.0/1.1 flagged), cipher strength, and whether HTTP correctly redirects to HTTPS. We verify the full chain.</p>
+        </div>
+        <div class="feature-card fade-up">
+          <div class="feature-icon">📂</div>
+          <h3>Exposed Files & Paths</h3>
+          <p>We probe 40+ common sensitive paths: <code>.env</code>, <code>.git/config</code>, <code>wp-config.php</code>, <code>phpinfo.php</code>, backup archives, admin panels, <code>.htpasswd</code>, and <code>Dockerfile</code>. Any that return HTTP 200 are flagged with severity.</p>
+        </div>
+        <div class="feature-card fade-up">
+          <div class="feature-icon">📧</div>
+          <h3>DNS: SPF, DMARC & DKIM</h3>
+          <p>We query your DNS records and validate SPF (including dangerous <code>+all</code> wildcards), DMARC policy enforcement level, and DKIM presence across common selectors. Missing or misconfigured records enable email spoofing from your domain.</p>
+        </div>
+        <div class="feature-card fade-up">
+          <div class="feature-icon">🌐</div>
+          <h3>Subdomain Discovery & Takeover</h3>
+          <p>We enumerate subdomains via Certificate Transparency (crt.sh) and check each for takeover fingerprints — GitHub Pages, Vercel, Netlify, S3, Azure, Heroku, and more. A dangling CNAME pointing to an unclaimed service is an open door.</p>
+        </div>
+        <div class="feature-card fade-up">
+          <div class="feature-icon">⚙️</div>
+          <h3>JavaScript Secret Scanning</h3>
+          <p>We fetch and scan your JS bundles and inline scripts for embedded API keys, tokens, passwords, and secrets. We check for Google API keys, AWS access keys, Stripe secrets, GitHub tokens, Slack tokens, SendGrid keys, and more.</p>
+        </div>
+        <div class="feature-card fade-up">
+          <div class="feature-icon">🖱️</div>
+          <h3>Clickjacking Protection</h3>
+          <p>We verify that your site cannot be embedded in an iframe on a third-party domain — checking for <code>X-Frame-Options: DENY</code> and CSP <code>frame-ancestors</code> directives.</p>
+        </div>
+        <div class="feature-card fade-up">
+          <div class="feature-icon">🔗</div>
+          <h3>HTTP Redirect Chain</h3>
+          <p>We follow your redirect chain from HTTP and flag long chains (3+ hops), redirects that pass through plain HTTP mid-chain, and mixed-content redirect issues.</p>
+        </div>
+        <div class="feature-card fade-up">
+          <div class="feature-icon">🌍</div>
+          <h3>Server Information Disclosure</h3>
+          <p>Server header version leakage and <code>X-Powered-By</code> technology disclosure — both tell attackers exactly what vulnerabilities to target.</p>
+        </div>
+      </div>
+
+      <!-- HONEST SCOPE BOX -->
+      <div class="honest-box fade-up">
+        <h3>Honest Scope — What This Covers and What It Doesn't</h3>
+        <div class="honest-cols">
+          <div>
+            <div class="honest-label yes">✓ What We Audit</div>
+            <ul class="yes">
+              <li>Your public-facing website and subdomains</li>
+              <li>HTTP response headers from your servers</li>
+              <li>SSL/TLS certificate and protocol config</li>
+              <li>DNS records (SPF, DMARC, DKIM)</li>
+              <li>Exposed files at common sensitive paths</li>
+              <li>Client-side JavaScript (bundles + inline)</li>
+              <li>Subdomain takeover via CT log enumeration</li>
+              <li>Redirect chain and clickjacking protection</li>
+            </ul>
+          </div>
+          <div>
+            <div class="honest-label no">✗ What This Is Not</div>
+            <ul class="no">
+              <li>Internal network or infrastructure pentesting</li>
+              <li>Social engineering or phishing simulation</li>
+              <li>Physical security assessment</li>
+              <li>Manual exploitation of application logic</li>
+              <li>Database or backend code review</li>
+              <li>Authentication bypass testing</li>
+            </ul>
+          </div>
+        </div>
+        <p style="margin-top:20px;font-size:0.88rem;color:var(--text-muted)">Need manual penetration testing? See our <a href="/pentest" style="color:var(--accent)">Pentest page →</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-section">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="section-tag">How It Works</span>
+        <h2>Automated scan + expert review</h2>
+        <p class="section-sub">Our tool runs the checks. A human reviews every finding before it goes in the report.</p>
+      </div>
+      <div class="steps-grid">
+        <div class="step fade-up">
+          <div class="step-num">1</div>
+          <h3>You send us your domain</h3>
+          <p>That's it. No credentials, no access, no installs. We work from the outside — the same view an attacker has.</p>
+        </div>
+        <div class="step fade-up">
+          <div class="step-num">2</div>
+          <h3>We run the full audit</h3>
+          <p>Our audit tool runs all checks automatically: headers, SSL, DNS, subdomains, exposed files, JS secrets. Takes 10–30 minutes per domain.</p>
+        </div>
+        <div class="step fade-up">
+          <div class="step-num">3</div>
+          <h3>Expert review</h3>
+          <p>We review every finding, remove false positives, add context, and rate severity based on actual exploitability — not just automated output.</p>
+        </div>
+        <div class="step fade-up">
+          <div class="step-num">4</div>
+          <h3>Written report delivered</h3>
+          <p>You get a full HTML + Markdown report with evidence screenshots, severity ratings, and copy-paste fix instructions for every finding.</p>
+        </div>
+        <div class="step fade-up">
+          <div class="step-num">5</div>
+          <h3>Fix and verify</h3>
+          <p>Make the fixes. We rerun the checks and issue written confirmation that each issue is closed. No open questions left.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DELIVERABLES -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="section-tag">What You Get</span>
+        <h2>A report you can actually act on</h2>
+        <p class="section-sub">Not a raw scanner dump. A real report reviewed by a human before it reaches you.</p>
+      </div>
+      <div class="deliverables-grid">
+        <div class="deliverable-card fade-up">
+          <div class="check">✓</div>
+          <h4>Full Written Report</h4>
+          <p>Every finding documented with severity rating, evidence, business impact context, and step-by-step fix instructions.</p>
+        </div>
+        <div class="deliverable-card fade-up">
+          <div class="check">✓</div>
+          <h4>Evidence for Every Finding</h4>
+          <p>Exact HTTP responses, header values, DNS record data, and JS snippets — nothing is claimed without proof.</p>
+        </div>
+        <div class="deliverable-card fade-up">
+          <div class="check">✓</div>
+          <h4>Copy-Paste Fix Instructions</h4>
+          <p>Exact config lines, header values, DNS record formats, and code changes. Your developer can implement each fix directly.</p>
+        </div>
+        <div class="deliverable-card fade-up">
+          <div class="check">✓</div>
+          <h4>Retest Included</h4>
+          <p>After you fix the findings, we rerun the audit and issue written confirmation. Every closed issue is verified, not assumed.</p>
+        </div>
+        <div class="deliverable-card fade-up">
+          <div class="check">✓</div>
+          <h4>Executive Summary</h4>
+          <p>Plain-language overview for non-technical stakeholders — risk posture, critical findings, and recommended priority order.</p>
+        </div>
+        <div class="deliverable-card fade-up">
+          <div class="check">✓</div>
+          <h4>HTML + Markdown Format</h4>
+          <p>Reports in both formats. HTML for sharing with clients and stakeholders. Markdown for your engineering team and docs.</p>
+        </div>
+      </div>
+
+      <!-- SEVERITY RATINGS -->
+      <div class="section-header fade-up" style="margin-top:64px">
+        <span class="section-tag">Severity Ratings</span>
+        <h2>Every finding rated by real-world exploitability</h2>
+      </div>
+      <div class="severity-grid">
+        <div class="severity-badge critical fade-up">
+          <div class="label">Critical</div>
+          <div class="desc">Immediate exploitation risk. Exposed credentials, subdomain takeover, expired cert.</div>
+        </div>
+        <div class="severity-badge high fade-up">
+          <div class="label">High</div>
+          <div class="desc">No clickjacking protection, missing HSTS, missing SPF/DMARC, wildcard CORS.</div>
+        </div>
+        <div class="severity-badge medium fade-up">
+          <div class="label">Medium</div>
+          <div class="desc">CSP with unsafe-inline, DMARC set to p=none, short HSTS max-age.</div>
+        </div>
+        <div class="severity-badge low fade-up">
+          <div class="label">Low</div>
+          <div class="desc">Missing Referrer-Policy or Permissions-Policy, server version disclosure.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing-section" id="pricing">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="section-tag">Pricing</span>
+        <h2>Flat rate. No surprises.</h2>
+        <p class="section-sub">You know exactly what you're getting and what you're paying before we start.</p>
+      </div>
+      <div class="pricing-grid">
+        <div class="pricing-card fade-up">
+          <div class="pricing-tier">Starter</div>
+          <div class="pricing-amount">$497</div>
+          <p class="pricing-desc">Core web surface audit for any site</p>
+          <ul class="pricing-features">
+            <li>Security headers (all 6 headers)</li>
+            <li>SSL/TLS cert + protocol check</li>
+            <li>Exposed sensitive files (40+ paths)</li>
+            <li>DNS: SPF, DMARC, DKIM</li>
+            <li>Subdomain discovery + takeover check</li>
+            <li>JS secret scanning</li>
+            <li>Clickjacking + redirect chain</li>
+            <li>Written report with evidence</li>
+            <li>One retest included</li>
+          </ul>
+          <a href="/#contact" class="btn btn-ghost" style="width:100%;text-align:center;display:block;">Get Starter Audit</a>
+        </div>
+        <div class="pricing-card featured fade-up">
+          <div class="popular-badge">Most Popular</div>
+          <div class="pricing-tier">Pro</div>
+          <div class="pricing-amount">$997</div>
+          <p class="pricing-desc">Full audit + expert manual review</p>
+          <ul class="pricing-features">
+            <li>Everything in Starter</li>
+            <li>Up to 3 domains / subdomains</li>
+            <li>Expert manual review of all findings</li>
+            <li>False positive removal</li>
+            <li>Executive summary for stakeholders</li>
+            <li>Priority support during remediation</li>
+            <li>HTML + Markdown report formats</li>
+            <li>Unlimited retests for 30 days</li>
+          </ul>
+          <a href="/#contact" class="btn btn-primary" style="width:100%;text-align:center;display:block;">Get Pro Audit</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <div class="container">
+      <h2>Most sites have at least one high-severity finding.</h2>
+      <p>Most owners never know. Send us your domain and we'll show you what's there — written report, evidence included, fixes provided.</p>
+      <a href="/#contact" class="btn btn-primary btn-lg">Get a Security Audit</a>
+      <p style="margin-top:14px;font-size:0.82rem;color:var(--text-faint)">Starter $497 · Pro $997 · Retest included · Web surface only, no credentials needed</p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="logo">Aluetion</span>
+        <p class="footer-tagline">We automate the boring stuff.</p>
+      </div>
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="/automation">Automation</a>
+        
+        <a href="/lead-enrichment">Lead Enrichment</a>
+        <a href="/email-verification">Email Verification</a>
+        <a href="/contact-finder">Contact Finder</a>
+        <a href="/security-audit">Security Audit</a>
+        <a href="/pentest">Penetration Testing</a>
+        <a href="/malware-scan">Malware Scanner</a>
+        <a href="/privacy">Privacy</a>
+        <a href="mailto:hello@aluetion.com">hello@aluetion.com</a>
+      </div>
+    </div>
+    <div class="container"><p class="footer-copy">© 2026 Aluetion. All rights reserved.</p></div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

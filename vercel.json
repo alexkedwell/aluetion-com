@@ -19,7 +19,10 @@
     { "source": "/email-verification", "destination": "/email-verification.html" },
     { "source": "/crm-enrichment", "destination": "/crm-enrichment.html" },
     { "source": "/ai-personalization", "destination": "/ai-personalization.html" },
-    { "source": "/contact-finder", "destination": "/contact-finder.html" }
+    { "source": "/contact-finder", "destination": "/contact-finder.html" },
+    { "source": "/security-audit", "destination": "/security-audit.html" },
+    { "source": "/pentest", "destination": "/pentest.html" },
+    { "source": "/malware-scan", "destination": "/malware-scan.html" }
   ],
   "headers": [
     {
